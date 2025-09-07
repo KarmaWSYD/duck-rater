@@ -1,12 +1,12 @@
 # duck-rater
 
 
-## Sovelluksen toiminnot
+## Application Features
 
-* Käyttäjä pystyy luomaan tunnuksen ja kirjautumaan sisään sovellukseen.
-* Käyttäjä pystyy lisäämään, muokkaamaan ja poistamaan kuvia tai tekstiä ankoista.
-* Käyttäjä näkee sovellukseen lisätyt ankat.
-* Käyttäjä pystyy etsimään ankkoja hakusanalla, luokittelun perusteella tai .
-* Sovelluksessa on käyttäjäsivut, jotka näyttävät tilastoja ja käyttäjän lisäämät ankat.
-* Käyttäjä pystyy valitsemaan ankalle yhden tai useamman luokittelun (esim. oikea ankka, piirretty ankka, kumiankka).
-* Käyttäjä pystyy arvostelemaan ankkoja (arvosana ja/tai kirjallinen arvostelu)
+* The user can create an account and login to the application.
+* The user can add, modify and delete posts (pictures or text) about ducks.
+* The user can choose one or more categories for the duck (e.g. real duck, drawing of a duck, rubber duck)
+* The user can see ducks posted to the application.
+* The user can search posts with a keyword.
+* The application has an user page that shows statistics and any posts created by the user.
+* The user can rate ducks on a scale of 1-5 as well as add written reviews of ducks.
