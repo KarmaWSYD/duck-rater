@@ -25,7 +25,7 @@ def query_all(sql, params=[]):
     conn.close()
     return result
 
-def query_all(sql, params=[]):
+def query_one(sql, params=[]):
     conn = _get_connection()
     result = conn.execute(sql, params).fetchone()
     conn.close()
