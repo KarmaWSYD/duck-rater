@@ -1,3 +1,7 @@
+# Project-specific files
+duck_project/*
+.vscode/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
