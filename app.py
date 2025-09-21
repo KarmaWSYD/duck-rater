@@ -100,3 +100,6 @@ def new_duck_post():
     ;"""
     db.execute(sql, [duck_name, duck_image, duck_description])
     return redirect("/")
+
+
+### TODO move sql code to its own module
