@@ -93,3 +93,4 @@ def new_duck_post():
     VALUES (?, ?, ?)
     ;"""
     db.execute(sql, [duck_name, duck_image, duck_description])
+    return redirect("/")
