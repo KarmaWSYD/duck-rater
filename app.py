@@ -12,7 +12,7 @@ app.secret_key = os.getenv("SECRET")
 
 def require_login():
     if "username" not in session:
-        abort(403)
+        abort(403) # We could also redirect to login page instead
 
 @app.route("/")
 def index():
@@ -73,6 +73,20 @@ def logout():
     return redirect("/")
 
 @app.route("/new-duck")
-def new_duck():
+def new_duck_get():
     require_login()
     return render_template("add_item.html")
+
+@app.route("/new-duck", methods=["POST"])
+def new_duck_post():
+    require_login()
+    duck_name = request.form("duck_name")
+    duck_image = request.form("duck_image")
+    duck_description = request.form("duck_description")
+    
+    sql = """
+    INSER INTO ducks (duck_name, duck_image, duck_description) 
+    VALUES (?, ?, ?)
+    ;"""
+    db.execute(sql, [duck_name, duck_image, duck_description])
+
