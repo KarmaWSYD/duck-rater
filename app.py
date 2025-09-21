@@ -63,3 +63,8 @@ def login_post():
         return redirect("/")
     else:
         return "Incorrect password"
+    
+@app.route("/logout")
+def logout():
+    del session["username"]
+    return redirect("/")
