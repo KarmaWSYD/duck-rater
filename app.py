@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import sqlite3
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 import random
 import db
 
@@ -32,3 +32,26 @@ def create_account():
         return f"Error: Username has already been taken, try a different username, for example: {suggest_username}"
 
     return "Created account"
+
+@app.route("/login")
+def login_get():
+    return render_template("login.html")
+
+@app.route("/login", methods=["POST"])
+def login_post():
+    username = request.form["username"]
+    password = request.form["password"]
+    try:
+        sql = """
+            SELECT password_hash 
+            FROM users
+            WHERE user = ?
+            ;"""
+        password_hash = db.query_one(sql, [username])
+        if not check_password_hash(password_hash, password):
+            return "Incorrect password"
+        
+    except sqlite3.IntegrityError:
+        return "Error: Failed to find user"
+    
+    return "Success"
