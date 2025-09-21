@@ -17,6 +17,10 @@
 * The application has an user page that shows statistics and any posts created by the user.
 * The user can rate ducks on a scale of 1-5 as well as add written reviews of ducks.
 
+### Known Issues:
+* Information about ducks is not shown properly in the index
+
+
 ## How to install:
 
 (In a Python virtual environment)
