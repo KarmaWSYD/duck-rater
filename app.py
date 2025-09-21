@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, session
+from flask import Flask, render_template, redirect, request, session, abort
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 import random
@@ -9,6 +9,11 @@ load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET")
+
+def require_login():
+    if "username" not in session:
+        abort(403)
+
 @app.route("/")
 def index():
     if "username" in session:
