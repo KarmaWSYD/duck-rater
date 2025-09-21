@@ -14,20 +14,20 @@
 ## How to install:
 
 (In a Python virtual environment)
-Install the `flask`-library:
+### Install the `flask`-library:
 
 ```
 $ pip install flask
 ```
 
-Create the database:
+### Create the database:
 
 ```
 $ sqlite3 database.db < schema.sql
 ```
-Start the application:
+### Start the application:
 
-* Using a Flask development server (as is done here) is not suitable for production use.
+Using a Flask development server (as is done here) is not suitable for production use.
 
 ```
 $ flask run
