@@ -24,7 +24,7 @@ def _generate_dotenv() -> None:
         logging.error(".env file already exists! Skipping file creation")
     else:
         logging.info("Generating a new .env file")
-        with open("./.env/", "w") as f:
+        with open("./.env", "w") as f:
             secret = secrets.token_hex()
             f.write(f"SECRET={secret}")
             os.environ["SECRET"] = secret # setting the SECRET variable if it doesn't exist
