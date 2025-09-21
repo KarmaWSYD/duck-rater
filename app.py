@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, redirect, request, session
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 import random
@@ -34,7 +34,8 @@ def create_account():
         # TODO Add a check for if the suggested username already exists
         return f"Error: Username has already been taken, try a different username, for example: {suggest_username}"
 
-    return render_template("index.html")
+    session["username"] = username
+    return redirect("/")
 
 @app.route("/login")
 def login_get():
@@ -51,10 +52,11 @@ def login_post():
             WHERE username = ?
             ;"""
         password_hash = db.query_one(sql, [username])[0]
-        if not check_password_hash(password_hash, password):
-            return "Incorrect password"
-        
-    except sqlite3.IntegrityError:
+    except sqlite3.IntegrityError: # Triggers if username does not exist
         return "Error: Failed to find user"
-    
-    return render_template("index.html")
+
+    if check_password_hash(password_hash, password):
+        session["username"] = username
+        return redirect("/")
+    else:
+        return "Incorrect password"
