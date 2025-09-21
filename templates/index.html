@@ -2,14 +2,20 @@
 <html>
 <link rel="stylesheet" href="/static/main.css"> <!-- should this be specified separately for each thing?-->
 <head>
-  <title>Index Page</Title>
+  <title>Duck Rater</Title>
 </head>
 
 <body>
-  <h1>Front page</h1>
+  <h1>Rating ducks since the dawn of time</h1>
+  {% if session.username %}
   <p>
-    Hello, World!
+    Hello, {{ session.username }} 
   </p>
+  {% else %}
+  <p>
+    You haven't logged in, you cannot rate ducks
+  <p>
+
 </body>
 
 </html>
