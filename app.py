@@ -11,7 +11,10 @@ app = Flask(__name__)
 app.secret_key = os.getenv("SECRET")
 @app.route("/")
 def index():
-    return render_template("index.html")
+    if session['username']:
+        return render_template("index.html")
+    else:
+        return redirect("/login")
 
 @app.route("/register")
 def register():
