@@ -80,9 +80,9 @@ def new_duck_get():
 @app.route("/new-duck", methods=["POST"])
 def new_duck_post():
     
-    duck_name = request.form("duck-name")
-    duck_image = request.form("duck-image")
-    duck_description = request.form("duck-description")
+    duck_name = request.form["duck-name"]
+    duck_image = request.form["duck-image"]
+    duck_description = request.form["duck-description"]
     duck_description = "No description provided"
     
     require_login()
