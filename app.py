@@ -48,15 +48,16 @@ def login_get():
 def login_post():
     username = request.form["username"]
     password = request.form["password"]
-    try:
-        sql = """
-            SELECT password_hash 
-            FROM users
-            WHERE username = ?
-            ;"""
-        password_hash = db.query_one(sql, [username])[0]
-    except sqlite3.IntegrityError: # Triggers if username does not exist
-        return "Error: Failed to find user"
+    sql = """
+        SELECT password_hash 
+        FROM users
+        WHERE username = ?
+        ;"""
+    password_hash = db.query_one(sql, [username])
+    if not password_hash:
+        return "ERROR: Could not find user"
+    else:
+        password_hash = password_hash[0]
 
     if check_password_hash(password_hash, password):
         session["username"] = username
