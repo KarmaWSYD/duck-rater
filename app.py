@@ -45,7 +45,7 @@ def login_post():
         sql = """
             SELECT password_hash 
             FROM users
-            WHERE user = ?
+            WHERE username = ?
             ;"""
         password_hash = db.query_one(sql, [username])
         if not check_password_hash(password_hash, password):
