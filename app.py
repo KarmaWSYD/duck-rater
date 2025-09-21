@@ -71,3 +71,8 @@ def login_post():
 def logout():
     del session["username"]
     return redirect("/")
+
+@app.route("/new-duck")
+def new_duck():
+    require_login()
+    return render_template("add_item.html")
