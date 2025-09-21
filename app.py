@@ -88,7 +88,7 @@ def new_duck_post():
     require_login()
     
     sql = """
-    INSER INTO ducks (duck_name, duck_image, duck_description) 
+    INSERT INTO ducks (duck_name, duck_image, duck_description) 
     VALUES (?, ?, ?)
     ;"""
     db.execute(sql, [duck_name, duck_image, duck_description])
