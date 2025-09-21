@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.secret_key = os.getenv("SECRET")
 @app.route("/")
 def index():
-    if session['username']:
+    if "username" in session:
         return render_template("index.html")
     else:
         return redirect("/login")
