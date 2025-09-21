@@ -34,7 +34,7 @@ def create_account():
         # TODO Add a check for if the suggested username already exists
         return f"Error: Username has already been taken, try a different username, for example: {suggest_username}"
 
-    return render_template("index.html")
+    return render_template("index.html", username=username)
 
 @app.route("/login")
 def login_get():
@@ -57,4 +57,4 @@ def login_post():
     except sqlite3.IntegrityError:
         return "Error: Failed to find user"
     
-    return render_template("index.html")
+    return render_template("index.html", username=username)
