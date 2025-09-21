@@ -27,6 +27,8 @@ $ sqlite3 database.db < schema.sql
 ```
 Start the application:
 
+* Using a Flask development server (as is done here) is not suitable for production use.
+
 ```
 $ flask run
 ```
