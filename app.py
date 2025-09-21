@@ -47,7 +47,7 @@ def login_post():
             FROM users
             WHERE username = ?
             ;"""
-        password_hash = db.query_one(sql, [username])
+        password_hash = db.query_one(sql, [username])[0]
         if not check_password_hash(password_hash, password):
             return "Incorrect password"
         
