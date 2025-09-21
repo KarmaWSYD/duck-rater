@@ -3,7 +3,12 @@
 
 ## Application Features
 
+### Implemented Features:
+
 * The user can create an account and login to the application.
+
+### Planned Features:
+
 * The user can add, modify and delete posts (pictures or text) about ducks.
 * The user can choose one or more categories for the duck (e.g. real duck, drawing of a duck, rubber duck)
 * The user can see ducks posted to the application.
