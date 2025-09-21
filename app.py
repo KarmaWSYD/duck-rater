@@ -16,10 +16,7 @@ def require_login():
 
 @app.route("/")
 def index():
-    if "username" in session:
-        return render_template("index.html")
-    else:
-        return redirect("/login")
+    return render_template("index.html")
 
 @app.route("/register")
 def register():
