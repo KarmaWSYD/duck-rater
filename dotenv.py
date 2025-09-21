@@ -29,8 +29,3 @@ def _generate_dotenv() -> None:
             f.write(f"SECRET={secret}")
             os.environ["SECRET"] = secret # setting the SECRET variable if it doesn't exist
             f.close()
-    
-    
-            
-if __name__ == "__main__":
-    load_dotenv()
