@@ -19,6 +19,7 @@ def index():
     sql = """
     SELECT id, duck_name 
     FROM ducks
+    ORDER BY id DESC
     ;"""
     all_items = db.query_all(sql)
     return render_template("index.html", items=all_items)
