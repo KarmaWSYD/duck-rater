@@ -16,7 +16,12 @@ def require_login():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    sql = """
+    SELECT id, duck_name 
+    FROM ducks
+    ;"""
+    all_items = db.query_all(sql)
+    return render_template("index.html", items=all_items)
 
 @app.route("/register")
 def register():
