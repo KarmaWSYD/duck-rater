@@ -79,17 +79,17 @@ def new_duck_get():
 
 @app.route("/new-duck", methods=["POST"])
 def new_duck_post():
-    
+    require_login()
     duck_name = request.form["duck-name"]
+    if not duck_name:
+        duck_name = "Untitled Duck"
     duck_image = request.form["duck-image"]
     duck_description = request.form["duck-description"]
-    duck_description = "No description provided"
-    
-    require_login()
+    if not duck_description:
+        duck_description = "No description provided"
     
     sql = """
     INSERT INTO ducks (duck_name, duck_image, duck_description) 
     VALUES (?, ?, ?)
     ;"""
     db.execute(sql, [duck_name, duck_image, duck_description])
-
