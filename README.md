@@ -22,12 +22,12 @@
 
 
 ## How to install:
-
-(In a Python virtual environment)
+In a Python virtual environment (venv)
+Tested on Python 3.13.8, other versions may or may not work.
 ### Install the `flask`-library:
-
+Tested on Flask version 3.1.2, other versions may or may not work.
 ```
-$ pip install flask
+$ pip install flask==3.1.2
 ```
 
 ### Create the database:
