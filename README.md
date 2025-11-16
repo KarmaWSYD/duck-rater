@@ -19,6 +19,7 @@
 
 ### Known Issues:
 * Information about ducks is not shown properly in the index
+* New Duck option gives an error instead of redirecting to a login/register page
 
 
 ## How to install:
