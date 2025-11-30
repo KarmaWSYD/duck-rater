@@ -11,3 +11,8 @@ CREATE TABLE ducks (
     duck_description TEXT
 );
 
+CREATE TABLE comments (
+id INTEGER PRIMARY KEY,
+parent_id INTEGER REFERENCES ducks, -- do we not need to specify this as ducks.id?
+comment TEXT
+);
