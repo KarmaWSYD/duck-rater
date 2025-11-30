@@ -1,7 +1,7 @@
 # Very simple parser for the .env file (We're using a .env file to make sure we're not committing secrets to git)
+# Normally we could use python-dotenv, but project requirements do not allow it as a dependency. Feel free to remove this file and install python-dotenv instead, the project should be compatible with it.
 
 import os
-import logging
 import secrets
 
 def load_dotenv() -> None:
@@ -15,15 +15,15 @@ def load_dotenv() -> None:
                 
             f.close()
     except FileNotFoundError:
-        logging.warning("No .env file found") # This does not currently do much since logging hasn't been implemented across the project TODO add proper logging
+        print("WARNING: No .env file found")
         if not os.getenv("SECRET"):
             _generate_dotenv() # Generating a new .env file if one doesn't exist and the "SECRET" environment variable doesn't exist
         
 def _generate_dotenv() -> None:
     if os.path.exists("./.env"):
-        logging.error(".env file already exists! Skipping file creation")
+        print("ERROR: .env file already exists! Skipping file creation")
     else:
-        logging.info("Generating a new .env file")
+        print("INFO: Generating a new .env file")
         with open("./.env", "w") as f:
             secret = secrets.token_hex()
             f.write(f"SECRET={secret}")

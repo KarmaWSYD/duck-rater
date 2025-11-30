@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import random
 import db
 import os
+# Using included code due to project requirements, but this should also be compatible with the third-party python-dotenv module.
 from dotenv import load_dotenv
 load_dotenv()
 
