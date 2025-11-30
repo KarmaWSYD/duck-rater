@@ -17,7 +17,7 @@ def require_login():
 @app.route("/")
 def index():
     sql = """
-    SELECT id, duck_name 
+    SELECT duck_name AS title, duck_image AS image, duck_description AS description 
     FROM ducks
     ORDER BY id DESC
     ;"""
