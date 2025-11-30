@@ -12,15 +12,14 @@
 
 * The user can modify and delete posts (pictures or text) about ducks. 
 * The user can choose one or more categories for the duck (e.g. real duck, drawing of a duck, rubber duck)
-* The user can see ducks posted to the application.
+* The user can see images of ducks posted to the application.
+  * Done: Titles and descriptions are shown
+  * Not yet implemented: images are shown
 * The user can search posts with a keyword.
 * The application has an user page that shows statistics and any posts created by the user.
 * The user can rate ducks on a scale of 1-5 as well as add written reviews of ducks.
 
 ### Known Issues:
-* Information about ducks is not shown properly in the index
-* New Duck option gives an error instead of redirecting to a login/register page
-
 
 ## How to install:
 In a Python virtual environment (venv)
