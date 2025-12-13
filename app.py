@@ -4,8 +4,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import random
 import db
 import os
-# Using included code due to project requirements, but this should also be compatible with the third-party python-dotenv module.
-from dotenv import load_dotenv
+from dotenv import load_dotenv 
+# uses locally defined dotenv.py, but should be compatible with python-dotenv
+# we're not using the proper module due to course requirements
 load_dotenv()
 
 app = Flask(__name__)
@@ -18,9 +19,9 @@ def require_login():
 @app.route("/")
 def index():
     sql = """
-    SELECT duck_name AS title, duck_image AS image, duck_description AS description 
+    SELECT ducks.duck_name AS title, ducks.duck_description AS description 
     FROM ducks
-    ORDER BY id DESC
+    ORDER BY ducks.id DESC
     ;"""
     all_items = db.query_all(sql)
     return render_template("index.html", items=all_items)
@@ -96,11 +97,24 @@ def new_duck_post():
         duck_description = "No description provided"
     
     sql = """
-    INSERT INTO ducks (duck_name, duck_image, duck_description) 
-    VALUES (?, ?, ?)
+    INSERT INTO ducks (duck_name, duck_description) 
+    VALUES (?, ?)
     ;"""
-    db.execute(sql, [duck_name, duck_image, duck_description])
+    db.execute(sql, [duck_name, duck_description])
+    sql = """
+    INSERT INTO images (parent_id, duck_image) VALUES (?, ?)
+    ;"""
+    db.execute(sql, [db.last_insert_id(), duck_image]) # not sure if this can break if there are concurrent requests
+    # should we support multiple images being made on creation?
     return redirect("/")
 
-
-### TODO move sql code to its own module
+@app.route("/duck-images/<int:item_id>", methods=["GET"])
+def get_image(item_id):
+    sql = f"""
+    SELECT duck_image
+    FROM images
+    WHERE id = ?
+    ;"""
+    result = db.query_all(sql, [item_id])
+    return result if result else None
+# TODO move sql code to its own module
