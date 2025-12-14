@@ -5,16 +5,14 @@
 {% block content %}
 <h2>{{ item.title }}</h2>
 <h2>Category: {{ category.name}}</h2>
-{% if session.user_id %}
 {% if session.user_id == item.creator %}
 <p>
   <a href="/edit-item/{{ item.id }}">Edit</a>
   <a href="/remove-item/{{ item.id }}">Delete</a>
 </p>
 {% endif %}
-{% endif %}
 <p>
-  Ratings: {{ ratings_count }}, {{ ratings_average }}★
+  Ratings: {{ ratings_count }}, Average: {{ average_rating }}★
   {% if user_rating %}
   Your rating: {{ user_rating }}★
   {% endif %}

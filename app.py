@@ -97,13 +97,18 @@ def new_duck_post():
     duck_name = request.form["duck-name"]
     if not duck_name:
         duck_name = "Untitled Duck"
-    duck_description = request.form["duck-description"]
+    if len(duck_name) > 50:
+        abort(403)
+    duck_description = request.form["description"]
     if not duck_description:
         duck_description = "No description provided"
+    if len(duck_description) > 1000:
+        abort(403)
     duck_category = request.form["category"]
+    if not duck_category:
+        abort(403)
     
     item_id = items.create_duck(creator=session["user_id"], name=duck_name, description=duck_description, category=duck_category)
-    
     file = request.files["duck-image"]
     duck_image = file.read()
     
@@ -120,10 +125,17 @@ def show_item(item_id):
     item = items.get_duck(item_id)
     images = items.get_images(item_id)
     category = items.get_category(item["category"])
-    ratings_count = items.get_ratings_count(item_id)[0]
-    average_rating = items.get_average_rating(item_id)[0]
+    ratings_count = items.get_ratings_count(item_id)
+    if ratings_count: 
+        ratings_count = ratings_count[0]
+    else: 
+        ratings_count = 0
+    average_rating = items.get_average_rating(item_id)
     if average_rating:
-        average_rating = f"{average_rating:.2f}"
+        average_rating = f"{average_rating[0]:.2f}"
+    else:
+        average_rating = 0
+    
     if "user_id" in session:
         user_rating = items.get_rating(item_id, session["user_id"])
     else:

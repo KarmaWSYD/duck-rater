@@ -90,7 +90,8 @@ def get_rating(id, user):
     WHERE parent_id = ?
         AND user_id = ? 
     ;"""
-    return db.query_one(sql, [id, user])
+    result = db.query_one(sql, [id, user])
+    return result[0] if result else None
 
 def get_ratings_count(id):
     sql = """
@@ -109,15 +110,11 @@ def get_average_rating(id):
 def add_rating(id, user, rating):
     sql = """
     INSERT INTO ratings (parent_id, user_id, rating)
-    VALUES (?, ?, ?) 
-    ;"""
-    try:
-        db.execute(sql, [id, user, rating])
-    except sqlite3.IntegrityError: # if rating already exists
-        sql = """
-        UPDATE ratings
-        SET rating = ?
+    VALUES (?, ?, ?)
+    ON CONFLICT(user_id)
+    DO
+        UPDATE SET rating = ?
         WHERE parent_id = ?
             AND user_id = ?
-        ;"""
-        db.execute(sql, [rating, id, user])
+    ;"""
+    db.execute(sql, [id, user, rating, rating, id, user])
