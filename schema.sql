@@ -7,7 +7,7 @@ CREATE TABLE users (
 CREATE TABLE ducks (
     id INTEGER PRIMARY KEY,
     duck_name TEXT,
-    duck_description TEXT
+    duck_description TEXT,
     category INTEGER REFERENCES categories
 );
 
