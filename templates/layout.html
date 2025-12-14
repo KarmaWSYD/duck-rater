@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="/static/main.css">
+</head>
+
+<body>
+  <h1>Duck Rater</h1>
+  <h3>Rating ducks since the dawn of time</h3>
+  {% if session.username %}
+  <p>
+    Welcome to Duck Rater, {{ session.username }}!
+  </p>
+  {% else %}
+  <p>
+    Register or log in to rate ducks
+  </p>
+  {% endif %}
+
+  <p>
+    <a href="/">Front Page</a> |
+    {% if session.username %}
+    <a href="/new-duck">Add New Duck</a> |
+    <a href="/logout">Log Out</a>
+    {% else %}
+    <a href="/register">Register</a> |
+    <a href="/login">Login</a>
+    {% endif %}
+  </p>
+  {% block content %}{% endblock %}
+</body>
+
+</html>

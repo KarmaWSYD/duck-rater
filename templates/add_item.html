@@ -1,11 +1,8 @@
-<!DOCTYPE html>
+{% extends "layout.html" %}
 
-<html>
-<link rel="stylesheet" href="/static/main.css">
+{% block title %}New Duck{% endblock %}
 
-<head>
-  <title>New Duck</Title>
-</head>
+{% block content %}
 
 <body>
   <form action="/new-duck" method="post">
@@ -25,4 +22,4 @@
   </form>
 </body>
 
-</html>
+{% endblock %}
