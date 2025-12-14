@@ -4,6 +4,12 @@ CREATE TABLE users (
     password_hash TEXT
 );
 
+CREATE TABLE categories (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    description TEXT
+);
+
 CREATE TABLE ducks (
     id INTEGER PRIMARY KEY,
     duck_name TEXT,
@@ -23,8 +29,3 @@ CREATE TABLE images (
     duck_image BLOB
 );
 
-CREATE TABLE categories (
-    id INTEGER PRIMARY KEY,
-    name TEXT,
-    description TEXT
-);
