@@ -23,19 +23,19 @@
 {% if session.user_id %}
 
 <body>
-  <form action="/add-rating/{{ item.id }}" method="post"></form>
-  <label for="rating">Add Rating</label>
-  <p>
-    <select name="rating" id="rating">
-      <option value="1">★</option>
-      <option value="2">★★</option>
-      <option value="3">★★★</option>
-      <option value="4">★★★★</option>
-      <option value="5">★★★★★</option>
-    </select>
-    <input type="hidden" name="csrf_token" vale="{{ session.csrf_token }}" />
-    <input type="submit" value="Submit" />
-  </p>
+  <form action="/add-rating/{{ item.id }}" method="post">
+    <label for="rating">Add Rating</label>
+    <p>
+      <select name="rating" id="rating">
+        <option value="1">★</option>
+        <option value="2">★★</option>
+        <option value="3">★★★</option>
+        <option value="4">★★★★</option>
+        <option value="5">★★★★★</option>
+      </select>
+      <input type="hidden" name="csrf_token" vale="{{ session.csrf_token }}" />
+      <input type="submit" value="Submit" />
+    </p>
   </form>
 </body>
 {% endif %}
