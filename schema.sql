@@ -12,7 +12,7 @@ CREATE TABLE categories (
 
 CREATE TABLE ducks (
     id INTEGER PRIMARY KEY,
-    creator INTEGER REFERENCES users
+    creator INTEGER REFERENCES users,
     duck_name TEXT,
     duck_description TEXT,
     category INTEGER REFERENCES categories
