@@ -84,7 +84,7 @@ def logout():
     del session["user_id"]
     return redirect("/")
 
-@app.route("/user/<int:user_id>", methods=["POST"])
+@app.route("/user/<int:user_id>", methods=["GET"])
 def show_user(user_id):
     user = users.get_user(user_id)
     if not user:
