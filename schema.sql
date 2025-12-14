@@ -21,10 +21,10 @@ CREATE TABLE images (
     id INTEGER PRIMARY KEY,
     parent_id INTEGER REFERENCES ducks,
     duck_image BLOB
-)
+);
 
 CREATE TABLE categories (
     id INTEGER PRIMARY KEY,
     name TEXT,
     description TEXT
-)
+);
