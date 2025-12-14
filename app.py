@@ -1,8 +1,7 @@
 from flask import Flask, render_template, redirect, request, session, abort, flash
-import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
+from secrets import token_hex
 import random
-import db
 import os
 import items, users
 from dotenv import load_dotenv 
@@ -65,6 +64,7 @@ def login_post():
 
     if check_password_hash(password_hash, password):
         session["username"] = username
+        session["csrf_token"] = token_hex(16)
         return redirect("/")
     else:
         return "Incorrect password"
