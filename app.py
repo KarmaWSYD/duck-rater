@@ -49,7 +49,7 @@ def create_account():
     session["username"] = username
     return redirect("/")
 
-@app.route("/login")
+@app.route("/login", methods=["GET"])
 def login_get():
     return render_template("login.html")
 
@@ -57,14 +57,12 @@ def login_get():
 def login_post():
     username = request.form["username"]
     password = request.form["password"]
-    login = users.login(username)
-    password_hash = login[1]
-    user_id = login[0]
+    user_id, password_hash = users.login(username)
     if not password_hash:
         flash("ERROR: Could not find user, are you sure you have an account?")
         return redirect("/login")
 
-    if check_password_hash(password_hash[1], password):
+    if check_password_hash(password_hash, password):
         session["username"] = username
         session["csrf_token"] = token_hex(16)
         session["user_id"] = user_id
