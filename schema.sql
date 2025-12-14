@@ -18,12 +18,6 @@ CREATE TABLE ducks (
     category INTEGER REFERENCES categories
 );
 
-CREATE TABLE comments (
-    id INTEGER PRIMARY KEY,
-    parent_id INTEGER REFERENCES ducks, -- do we not need to specify this as ducks.id?
-    comment TEXT
-);
-
 CREATE TABLE ratings (
     id INTEGER PRIMARY KEY,
     parent_id INTEGER REFERENCES ducks,
