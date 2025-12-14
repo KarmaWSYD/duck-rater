@@ -16,9 +16,11 @@
   {% if user_rating %}
   Your rating: {{ user_rating }}★
   {% endif %}
+</p>
+<p>
   {% if session.user_id %}
   <label for="rating">Add Rating</label>
-<p>
+
   <select name="rating" id="rating">
     <option value="1">★</option>
     <option value="2">★★</option>
@@ -28,7 +30,7 @@
   </select>
   <input type="hidden" name="csrf_token" vale="{{ session.csrf_token }}" />
   <input type="submit" value="Submit" />
-
+  {% endif %}
 </p>
 
 </p>
