@@ -144,7 +144,7 @@ def edit_item(item_id):
     if item["user_id"] != session["user_id"]:
         abort(403)
 
-    return render_template("edit_item.html", item=item)
+    return render_template("edit_item.html", item=item, categories=items.get_categories())
         
 @app.route("/update-item/<int:item_id>", methods=["POST"])
 def update_item():
