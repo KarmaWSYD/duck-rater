@@ -119,7 +119,7 @@ def add_rating(id, user, rating):
     sql = """
     INSERT INTO ratings (parent_id, user_id, rating)
     VALUES (?, ?, ?)
-    ON CONFLICT(user_id)
+    ON CONFLICT(parent_id, user_id)
     DO
         UPDATE SET rating = ?
         WHERE parent_id = ?

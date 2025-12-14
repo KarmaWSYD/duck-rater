@@ -52,7 +52,11 @@ def create_account():
         flash(f"Error: Username has already been taken, try a different username, for example: {suggest_username}")
         return redirect("/register")
 
+    user_id, password_hash = users.login(username)
     session["username"] = username
+    session["csrf_token"] = token_hex(16)
+    session["user_id"] = user_id
+
     return redirect("/")
 
 @app.route("/login", methods=["GET"])
@@ -77,7 +81,7 @@ def login_post():
         flash("Incorrect password")
         return redirect("/login")
     
-@app.route("/logout", methods=["POST"])
+@app.route("/logout", methods=["GET"])
 def logout():
     del session["username"]
     del session["csrf_token"]
@@ -140,7 +144,10 @@ def show_item(item_id):
         ratings_count = 0
     average_rating = items.get_average_rating(item_id)
     if average_rating:
-        average_rating = f"{average_rating[0]:.2f}"
+        if not average_rating[0]:
+            average_rating = 0
+        else:
+            average_rating = f"{average_rating[0]:.2f}"
     else:
         average_rating = 0
     
