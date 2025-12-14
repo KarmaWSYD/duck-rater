@@ -112,7 +112,11 @@ def show_item(item_id):
     item = items.get_duck(item_id)
     images = items.get_images(item_id)
     category = items.get_category(item["category"])
-    return render_template("show_item.html", images=images, item=item, category=category)
+    ratings_count = items.get_ratings_count(item_id)
+    average_rating = items.get_average_rating(item_id)
+    average_rating = f"{average_rating:.2f}"
+    user_rating = items.get_rating(item_id, session["user_id"])
+    return render_template("show_item.html", images=images, item=item, category=category, ratings_count=ratings_count, average_rating=average_rating, user_rating=user_rating)
 
 @app.route("/remove-item/<int:item_id>", methods=["GET", "POST"])
 def remove_item(item_id):
@@ -169,4 +173,18 @@ def update_item():
 
     return redirect("/item/" + str(item_id))
 
+@app.route("/add-rating/<int:item_id>", methods=["POST"])
+def add_rating(item_id):
+    require_login()
+    check_csrf()
     
+    item = items.get_duck(item_id)
+    if not item:
+        abort(404)
+    rating = int(request.form["rating"])
+    if rating < 1:
+        rating = 1
+    elif rating > 5:
+        rating = 5
+    items.add_rating(item_id, user=session["user_id"], rating=rating)
+    return redirect("/item/" + str(item_id))

@@ -1,4 +1,5 @@
 import db
+import sqlite3
 
 def create_duck(creator, name, description, category):
     sql = """
@@ -82,3 +83,41 @@ def get_category(id):
     WHERE id = ?
     ;"""
     return db.query_one(sql, [id])
+
+def get_rating(id, user):
+    sql = """
+    SELECT rating FROM ratings
+    WHERE parent_id = ?
+        AND user_id = ? 
+    ;"""
+    return db.query_one(sql, [id, user])
+
+def get_ratings_count(id):
+    sql = """
+    SELECT COUNT(rating) FROM ratings
+    WHERE parent_id = ?
+    ;"""
+    return db.query_all(sql, [id])
+
+def get_average_rating(id):
+    sql = """
+    SELECT AVG(rating) FROM ratings
+    WHERE parent_id = ?
+    ;"""
+    return db.query_one(sql, [id])
+
+def add_rating(id, user, rating):
+    sql = """
+    INSERT INTO ratings (parent_id, user_id, rating)
+    VALUES (?, ?, ?) 
+    ;"""
+    try:
+        db.execute(sql, [id, user, rating])
+    except sqlite3.IntegrityError: # if rating already exists
+        sql = """
+        UPDATE ratings
+        SET rating = ?
+        WHERE parent_id = ?
+            AND user_id = ?
+        ;"""
+        db.execute(sql, [rating, id, user])

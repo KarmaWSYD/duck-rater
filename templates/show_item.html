@@ -4,17 +4,37 @@
 
 {% block content %}
 <h2>{{ item.title }}</h2>
-<h3>{{ category.name}}</h3>
+<h2>Category: {{ category.name}}</h2>
 {% if session.user_id == item.creator %}
 <p>
   <a href="/edit-item/{{ item.id }}">Edit</a>
   <a href="/remove-item/{{ item.id }}">Delete</a>
 </p>
 {% endif %}
+<p>
+  Ratings: {{ ratings_count }}, {{ ratings_average }}★
+  {% if user_rating %}
+  Your rating: {{ user_rating }}★
+  {% endif %}
+  {% if session.user_id %}
+  <label for="rating">Add Rating</label>
+<p>
+  <select name="rating" id="rating">
+    <option value="1">★</option>
+    <option value="2">★★</option>
+    <option value="3">★★★</option>
+    <option value="4">★★★★</option>
+    <option value="5">★★★★★</option>
+  </select>
+  <input type="hidden" name="csrf_token" vale="{{ session.csrf_token }}" />
+  <input type="submit" value="Submit" />
+
+</p>
+
+</p>
 {% for image in images %}
 <br />
 <img src="/duck-images/{{ image.id }}" alt="Picture of a duck" />
-<!-- should we support custom alt texts for images?-->
 {% endfor %}
 <br />
 <p>
