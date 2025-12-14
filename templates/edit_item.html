@@ -5,7 +5,7 @@
 {% block content %}
 <h2>{{ item.title }}</h2>
 <h3>Edit Post</h3>
-<form action="/update_item" method="post">
+<form action="/update-item" method="post">
   <p>
     <label for="title">Title</label>: <br />
     <input type="text" name="title" id="title" value="{{ item.title }}" maxlength="50" required />

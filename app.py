@@ -135,7 +135,7 @@ def remove_item(item_id):
         else:
             return redirect("/item/" + str(item_id))
 
-@app.route("/edit_item/<int:item_id>", methods=["GET"])
+@app.route("/edit-item/<int:item_id>", methods=["GET"])
 def edit_item(item_id):
     require_login()
     item = items.get_ducks(item_id)
