@@ -21,7 +21,7 @@
 {% if session.user_id %}
 
 <body>
-  <form action="/add-rating" method="post"></form>
+  <form action="/add-rating/{{ item.id }}" method="post"></form>
   <label for="rating">Add Rating</label>
   <p>
     <select name="rating" id="rating">
