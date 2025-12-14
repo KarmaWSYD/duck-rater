@@ -97,7 +97,7 @@ def get_ratings_count(id):
     SELECT COUNT(rating) FROM ratings
     WHERE parent_id = ?
     ;"""
-    return db.query_all(sql, [id])
+    return db.query_one(sql, [id])
 
 def get_average_rating(id):
     sql = """
