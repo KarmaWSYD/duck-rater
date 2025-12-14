@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import random
 import db
 import os
+import items, users
 from dotenv import load_dotenv 
 # uses locally defined dotenv.py, but should be compatible with python-dotenv
 # we're not using the proper module due to course requirements
@@ -18,12 +19,7 @@ def require_login():
 
 @app.route("/")
 def index():
-    sql = """
-    SELECT ducks.duck_name AS title, ducks.duck_description AS description 
-    FROM ducks
-    ORDER BY ducks.id DESC
-    ;"""
-    all_items = db.query_all(sql)
+    all_items = items.get_all_ducks()
     return render_template("index.html", items=all_items)
 
 @app.route("/register")
@@ -39,11 +35,8 @@ def create_account():
         return "Error: Passwords do not match"
     password_hash = generate_password_hash(password1) # return string includes the method, salt and hash ($ as separator), the salt is unique for each instance
 
-    try:
-        sql = """INSERT INTO users (username, password_hash) VALUES (?, ?)"""
-        db.execute(sql, [username, password_hash])
-    except sqlite3.IntegrityError:
-        suggest_username = username + f"{random.randint(1, 99)}"
+    if not users.create_user(username, password_hash):
+        suggest_username = username + f"{random.randint(1, 999)}"
         # TODO Add a check for if the suggested username already exists
         return f"Error: Username has already been taken, try a different username, for example: {suggest_username}"
 
@@ -58,16 +51,9 @@ def login_get():
 def login_post():
     username = request.form["username"]
     password = request.form["password"]
-    sql = """
-        SELECT password_hash 
-        FROM users
-        WHERE username = ?
-        ;"""
-    password_hash = db.query_one(sql, [username])
+    password_hash = users.login(username)
     if not password_hash:
         return "ERROR: Could not find user"
-    else:
-        password_hash = password_hash[0]
 
     if check_password_hash(password_hash, password):
         session["username"] = username
@@ -91,48 +77,25 @@ def new_duck_post():
     duck_name = request.form["duck-name"]
     if not duck_name:
         duck_name = "Untitled Duck"
-    file = request.files["duck-image"]
-    #
-    duck_image = file.read()
     duck_description = request.form["duck-description"]
     if not duck_description:
         duck_description = "No description provided"
     
-    sql = """
-    INSERT INTO ducks (duck_name, duck_description) 
-    VALUES (?, ?)
-    ;"""
-    db.execute(sql, [duck_name, duck_description])
-    sql = """
-    INSERT INTO images (parent_id, duck_image) VALUES (?, ?)
-    ;"""
-    db.execute(sql, [db.last_insert_id(), duck_image]) # not sure if this can break if there are concurrent requests
+    parent_id = items.create_duck(name=duck_name, description=duck_description)
+    
+    file = request.files["duck-image"]
+    duck_image = file.read()
+    
+    items.create_image(duck_image, parent_id)
     # should we support multiple images being made on creation?
     return redirect("/")
 
 @app.route("/duck-images/<int:item_id>", methods=["GET"])
 def get_image(item_id):
-    sql = f"""
-    SELECT duck_image
-    FROM images
-    WHERE id = ?
-    ;"""
-    return db.query_one(sql, [item_id])[0]
+    return items.get_image(item_id)
 
 @app.route("/item/<int:item_id>")
 def show_item(item_id):
-    sql = f"""
-    SELECT id FROM images WHERE parent_id = ?
-    ;"""
-    images = db.query_all(sql, [item_id])
-    
-    sql = """
-    SELECT ducks.id AS id, ducks.duck_name AS title, ducks.duck_description AS description 
-    FROM ducks
-    WHERE ducks.id = ?
-    ;"""
-    item = db.query_one(sql, [item_id])
-
-    
+    item = items.get_duck(item_id)
+    images = items.get_images(item_id)
     return render_template("show_item.html", images=images, item=item)
-# TODO move sql code to its own module
