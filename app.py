@@ -81,7 +81,7 @@ def new_duck_post():
     duck_description = request.form["duck-description"]
     if not duck_description:
         duck_description = "No description provided"
-    duck_category = request.form["duck-category"]
+    duck_category = request.form["category"]
     
     parent_id = items.create_duck(name=duck_name, description=duck_description, category=duck_category)
     

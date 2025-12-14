@@ -58,4 +58,4 @@ def get_category(id):
     FROM categories
     WHERE id = ?
     ;"""
-    return db.query_one(sql, id)
+    return db.query_one(sql, [id])
