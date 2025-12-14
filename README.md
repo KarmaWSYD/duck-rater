@@ -34,6 +34,7 @@ $ pip install flask==3.1.2
 
 ```
 $ sqlite3 database.db < schema.sql
+$ sqlite3 database.db < init.sql
 ```
 ### Start the application:
 

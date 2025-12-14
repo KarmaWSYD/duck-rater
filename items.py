@@ -45,3 +45,9 @@ def get_images(id):
     ;"""
     return db.query_all(sql, [id])
 
+def get_categories():
+    sql = """
+    SELECT id, name, description
+    FROM categories
+    """
+    return db.query_all(sql)

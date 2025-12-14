@@ -18,8 +18,18 @@
       Description: <br />
       <input type="text" name="duck-description" />
     </p>
-    <input type="submit" value="New Duck" />
+    <label for="category">Choose a category:</label>
+
+    <p>
+      <select name="Category" id="category">
+        {% for category in categories %}
+        <option value="{ category.id }">{ category.name }: { category.description }</option>
+        {% endfor %}
+      </select>
+    </p>
+    <input type="submit" value="Create a new Duck" />
   </form>
 </body>
+
 
 {% endblock %}

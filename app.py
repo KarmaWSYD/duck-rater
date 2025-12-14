@@ -66,10 +66,11 @@ def logout():
     del session["username"]
     return redirect("/")
 
-@app.route("/new-duck")
+@app.route("/new-duck", methods=["GET"])
 def new_duck_get():
     require_login()
-    return render_template("add_item.html")
+    categories = items.get_categories()
+    return render_template("add_item.html", categories=categories)
 
 @app.route("/new-duck", methods=["POST"])
 def new_duck_post():
