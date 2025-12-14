@@ -1,16 +1,16 @@
 import db
 
-def create_duck(name, description, category):
+def create_duck(creator, name, description, category):
     sql = """
-        INSERT INTO ducks (duck_name, duck_description, category) 
-        VALUES (?, ?, ?)
+        INSERT INTO ducks (creator, duck_name, duck_description, category) 
+        VALUES (?, ?, ?, ?)
         ;"""
-    db.execute(sql, [name, description, category])
+    db.execute(sql, [creator, name, description, category])
     return db.last_insert_id() 
 
 def get_duck(id):
     sql = """
-    SELECT id, duck_name AS title, duck_description AS description, category
+    SELECT id, creator, duck_name AS title, duck_description AS description, category
     FROM ducks
     WHERE ducks.id = ?
     ;"""
@@ -18,9 +18,9 @@ def get_duck(id):
 
 def get_all_ducks():  
     sql = """
-        SELECT ducks.duck_name AS title, ducks.duck_description AS description 
+        SELECT id, creator, duck_name AS title, duck_description AS description 
         FROM ducks
-        ORDER BY ducks.id DESC
+        ORDER BY id DESC
         ;"""
     return db.query_all(sql)
 

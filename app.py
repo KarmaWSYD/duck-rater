@@ -93,7 +93,7 @@ def new_duck_post():
         duck_description = "No description provided"
     duck_category = request.form["category"]
     
-    parent_id = items.create_duck(name=duck_name, description=duck_description, category=duck_category)
+    parent_id = items.create_duck(creator=session["user_id"], name=duck_name, description=duck_description, category=duck_category)
     
     file = request.files["duck-image"]
     duck_image = file.read()
