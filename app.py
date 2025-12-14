@@ -39,11 +39,10 @@ def create_account():
     if password1 != password2:
         flash("Error: Passwords do not match")
         return redirect("/register")
-    password_hash = generate_password_hash(password1) # return string includes the method, salt and hash ($ as separator), the salt is unique for each instance
+    password_hash = generate_password_hash(password1)
 
     if not users.create_user(username, password_hash):
-        suggest_username = username + f"{random.randint(1, 999)}"
-        # TODO Add a check for if the suggested username already exists
+        suggest_username = username + f"{random.randint(1, 9999)}" # This could have duplicates
         flash(f"Error: Username has already been taken, try a different username, for example: {suggest_username}")
         return redirect("/register")
 
@@ -60,14 +59,16 @@ def login_post():
     password = request.form["password"]
     password_hash = users.login(username)
     if not password_hash:
-        return "ERROR: Could not find user"
+        flash("ERROR: Could not find user, are you sure you have an account?")
+        return redirect("/login")
 
     if check_password_hash(password_hash, password):
         session["username"] = username
         session["csrf_token"] = token_hex(16)
         return redirect("/")
     else:
-        return "Incorrect password"
+        flash("Incorrect password")
+        return redirect("/login")
     
 @app.route("/logout")
 def logout():
