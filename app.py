@@ -22,12 +22,12 @@ def check_csrf():
     if request.form["csrf_token"] != session["csrf_token"]:
         abort(403)
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def index():
     all_items = items.get_ducks()
     return render_template("index.html", items=all_items)
 
-@app.route("/register")
+@app.route("/register", methods=["GET"])
 def register():
     return render_template("register.html")
 
@@ -77,12 +77,20 @@ def login_post():
         flash("Incorrect password")
         return redirect("/login")
     
-@app.route("/logout")
+@app.route("/logout", methods=["POST"])
 def logout():
     del session["username"]
     del session["csrf_token"]
     del session["user_id"]
     return redirect("/")
+
+@app.route("/user/<int:user_id>", methods=["POST"])
+def show_user(user_id):
+    user = users.get_user(user_id)
+    if not user:
+        abort(404)
+    user_items = users.get_ducks(user_id)
+    return render_template("show_user.html", user=user, items=user_items)
 
 @app.route("/new-duck", methods=["GET"])
 def new_duck_get():
@@ -197,7 +205,7 @@ def update_item():
 
     return redirect("/item/" + str(item_id))
 
-@app.route("/find-item")
+@app.route("/find-item", methods=["POST"])
 def find_item():
     query = request.args.get("query")
     if query:
