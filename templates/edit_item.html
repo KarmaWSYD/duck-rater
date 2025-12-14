@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}Edit Post{% endblock %}
+
+{% block content %}
+<h2>{{ item.title }}</h2>
+<h3>Edit Post</h3>
+<form action="/update_item" method="post">
+  <p>
+    <label for="title">Title</label>: <br />
+    <input type="text" name="title" id="title" value="{{ item.title }}" maxlength="50" required />
+  </p>
+  <p>
+    <label for="description">Description</label>: <br />
+    <textarea name="description" id="description" rows="8" cols="60" maxlength="1000" required>{{ item.description }}</textarea>
+  </p>
+  <input type="hidden" name="item_id" value="{{ item.id }}" />
+  <p>
+    <select name="category" id="category" required>
+      {% for category in categories %}
+      <option value="{{ category.id }}">{{ category.name }}: {{ category.description }}</option>
+      {% endfor %}
+    </select>
+  </p>
+
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+  <input type="submit" value="Update Post" />
+</form>
+<p>
+  <a href="/item/{{ item.id }}">Back to Post</a>
+</p>
+{% endblock %}

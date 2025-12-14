@@ -16,7 +16,7 @@ def get_duck(id):
     ;"""
     return db.query_one(sql, [id])
 
-def get_all_ducks():  
+def get_ducks():  
     sql = """
         SELECT id, creator, duck_name AS title, duck_description AS description 
         FROM ducks
@@ -37,6 +37,15 @@ def remove_duck(id):
     DELETE FROM ducks WHERE id = ?
     ;"""
     db.execute(sql, [id])
+
+def update_duck(id, title, description):
+    sql = """
+    UPDATE ducks 
+    SET title = ?,
+        description = ?
+    WHERE id = ?
+    ;"""
+    db.execute(sql, [id, title, description])
 
 def create_image(image, parent_id):
     sql = """

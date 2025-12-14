@@ -24,7 +24,7 @@ def check_csrf():
 
 @app.route("/")
 def index():
-    all_items = items.get_all_ducks()
+    all_items = items.get_ducks()
     return render_template("index.html", items=all_items)
 
 @app.route("/register")
@@ -94,14 +94,14 @@ def new_duck_post():
         duck_description = "No description provided"
     duck_category = request.form["category"]
     
-    parent_id = items.create_duck(creator=session["user_id"], name=duck_name, description=duck_description, category=duck_category)
+    item_id = items.create_duck(creator=session["user_id"], name=duck_name, description=duck_description, category=duck_category)
     
     file = request.files["duck-image"]
     duck_image = file.read()
     
-    items.create_image(duck_image, parent_id)
+    items.create_image(duck_image, item_id)
     # should we support multiple images being made on creation?
-    return redirect("/")
+    return redirect("/item/" + str(item_id))
 
 @app.route("/duck-images/<int:item_id>", methods=["GET"])
 def get_image(item_id):
@@ -114,7 +114,7 @@ def show_item(item_id):
     category = items.get_category(item["category"])
     return render_template("show_item.html", images=images, item=item, category=category)
 
-@app.route("/remove-item<int:item_id>", methods=["GET", "POST"])
+@app.route("/remove-item/<int:item_id>", methods=["GET", "POST"])
 def remove_item(item_id):
     require_login()
 
@@ -134,3 +134,39 @@ def remove_item(item_id):
             return redirect("/")
         else:
             return redirect("/item/" + str(item_id))
+
+@app.route("/edit_item/<int:item_id>", methods=["GET"])
+def edit_item(item_id):
+    require_login()
+    item = items.get_ducks(item_id)
+    if not item:
+        abort(404)
+    if item["user_id"] != session["user_id"]:
+        abort(403)
+
+    return render_template("edit_item.html", item=item)
+        
+@app.route("/update-item/<int:item_id>", methods=["POST"])
+def update_item():
+    require_login()
+    check_csrf()
+
+    item_id = request.form["item_id"]
+    item = items.get_duck(item_id)
+    if not item:
+        abort(404)
+    if item["user_id"] != session["user_id"]:
+        abort(403)
+
+    title = request.form["title"]
+    if not title or len(title) > 50:
+        abort(403)
+    description = request.form["description"]
+    if not description or len(description) > 1000:
+        abort(403)
+
+    items.update_duck(item_id, title, description)
+
+    return redirect("/item/" + str(item_id))
+
+    

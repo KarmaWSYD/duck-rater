@@ -8,7 +8,7 @@
   <form action="/new-duck" method="post" enctype="multipart/form-data">
     <p>
       Title: <br />
-      <input type="text" name="duck-name" />
+      <input type="text" name="duck-name" maxlength="50" />
     </p>
     <p>
       Image (Required): <br />
@@ -16,7 +16,7 @@
     </p>
     <p>
       Description: <br />
-      <input type="text" name="duck-description" />
+      <input type="text" name="duck-description" rows="8" cols="60" maxlength="1000" />
     </p>
     <label for="category">Choose a category (Required):</label>
 
