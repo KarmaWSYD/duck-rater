@@ -34,10 +34,16 @@ def register():
 @app.route("/create_account", methods=["POST"])
 def create_account():
     username = request.form["username"]
+    if len(username) > 20:
+        flash("Username is too long! Max length: 20 characters")
+        return redirect("/register")
     password1 = request.form["password1"]
     password2 = request.form["password2"]
     if password1 != password2:
         flash("Error: Passwords do not match")
+        return redirect("/register")
+    if len(password1) > 36:
+        flash("Error: Password is too long! Max length: 36 characters")
         return redirect("/register")
     password_hash = generate_password_hash(password1)
 
