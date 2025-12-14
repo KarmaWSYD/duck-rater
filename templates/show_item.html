@@ -17,21 +17,25 @@
   Your rating: {{ user_rating }}★
   {% endif %}
 </p>
-<p>
-  {% if session.user_id %}
-  <label for="rating">Add Rating</label>
 
-  <select name="rating" id="rating">
-    <option value="1">★</option>
-    <option value="2">★★</option>
-    <option value="3">★★★</option>
-    <option value="4">★★★★</option>
-    <option value="5">★★★★★</option>
-  </select>
-  <input type="hidden" name="csrf_token" vale="{{ session.csrf_token }}" />
-  <input type="submit" value="Submit" />
-  {% endif %}
-</p>
+{% if session.user_id %}
+
+<body>
+  <form action="/add-rating" method="post"></form>
+  <label for="rating">Add Rating</label>
+  <p>
+    <select name="rating" id="rating">
+      <option value="1">★</option>
+      <option value="2">★★</option>
+      <option value="3">★★★</option>
+      <option value="4">★★★★</option>
+      <option value="5">★★★★★</option>
+    </select>
+    <input type="hidden" name="csrf_token" vale="{{ session.csrf_token }}" />
+    <input type="submit" value="Submit" />
+  </p>
+</body>
+{% endif %}
 
 </p>
 {% for image in images %}
