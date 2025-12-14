@@ -4,6 +4,7 @@
 
 {% block content %}
 <h2>{{ item.title }}</h2>
+<h3>{{ category.name}} <h3>
 {% if session.user_id == item.user_id %}
 <p>
   <!--a href="/edit_item/{{ item.id }}">Muokkaa</a-->
@@ -12,9 +13,11 @@
 </p>
 {% endif %}
 {% for image in images %}
+<br/>
 <img src="/duck-images/{{ image.id }}" alt="Picture of a duck" />
 <!-- should we support custom alt texts for images?-->
 {% endfor %}
+<br/>
 <p>
   {{ item.description }}
 </p>

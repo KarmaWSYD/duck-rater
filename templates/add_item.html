@@ -11,19 +11,19 @@
       <input type="text" name="duck-name" />
     </p>
     <p>
-      Image: <br />
-      <input type="file" name="duck-image" id="duck-image" accept=".png,.jpg" />
+      Image (Required): <br />
+      <input type="file" name="duck-image" id="duck-image" accept=".png,.jpg" required />
     </p>
     <p>
       Description: <br />
       <input type="text" name="duck-description" />
     </p>
-    <label for="category">Choose a category:</label>
+    <label for="category">Choose a category (Required):</label>
 
     <p>
-      <select name="Category" id="category">
+      <select name="Category" id="category" required>
         {% for category in categories %}
-        <option value="{ category.id }">{ category.name }: { category.description }</option>
+        <option value="{ category.id }">{{ category.name }}: {{ category.description }}</option>
         {% endfor %}
       </select>
     </p>

@@ -81,8 +81,9 @@ def new_duck_post():
     duck_description = request.form["duck-description"]
     if not duck_description:
         duck_description = "No description provided"
+    duck_category = request.form["duck-category"]
     
-    parent_id = items.create_duck(name=duck_name, description=duck_description)
+    parent_id = items.create_duck(name=duck_name, description=duck_description, category=duck_category)
     
     file = request.files["duck-image"]
     duck_image = file.read()
@@ -99,4 +100,5 @@ def get_image(item_id):
 def show_item(item_id):
     item = items.get_duck(item_id)
     images = items.get_images(item_id)
-    return render_template("show_item.html", images=images, item=item)
+    category = items.get_category(item["category"])
+    return render_template("show_item.html", images=images, item=item, category=category)
