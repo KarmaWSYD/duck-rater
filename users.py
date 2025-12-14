@@ -27,8 +27,7 @@ def get_user(id):
     FROM users 
     WHERE id = ?
     ;"""
-    result = db.query_one(sql, [id])
-    return result[0] if result else None
+    return db.query_one(sql, [id])
 
 def get_ducks(user):
     sql = """
