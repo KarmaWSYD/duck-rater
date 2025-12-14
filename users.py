@@ -9,15 +9,14 @@ def create_user(username, password_hash):
     except sqlite3.IntegrityError:
         return False
     
-def login(username):
+def login(username) -> tuple:
     sql = """
-        SELECT password_hash 
+        SELECT id, password_hash 
         FROM users
         WHERE username = ?
         ;"""
-    password_hash = db.query_one(sql, [username])
+    id, password_hash = db.query_one(sql, [username])
     if not password_hash:
         return False
     else:
-        password_hash = password_hash[0]
-        return password_hash
+        return (id, password_hash)

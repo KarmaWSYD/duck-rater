@@ -57,14 +57,17 @@ def login_get():
 def login_post():
     username = request.form["username"]
     password = request.form["password"]
-    password_hash = users.login(username)
+    login = users.login(username)
+    password_hash = login[1]
+    user_id = login[0]
     if not password_hash:
         flash("ERROR: Could not find user, are you sure you have an account?")
         return redirect("/login")
 
-    if check_password_hash(password_hash, password):
+    if check_password_hash(password_hash[1], password):
         session["username"] = username
         session["csrf_token"] = token_hex(16)
+        session["user_id"] = user_id
         return redirect("/")
     else:
         flash("Incorrect password")
