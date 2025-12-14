@@ -24,6 +24,20 @@ def get_all_ducks():
         ;"""
     return db.query_all(sql)
 
+def remove_duck(id):
+    sql = """
+    DELETE FROM images WHERE parent_id = ?
+    ;"""
+    db.execute(sql, [id])
+    sql = """
+    DELETE FROM comments WHERE parent_id = ?
+    ;"""
+    db.execute(sql, [id])
+    sql = """
+    DELETE FROM ducks WHERE id = ?
+    ;"""
+    db.execute(sql, [id])
+
 def create_image(image, parent_id):
     sql = """
     INSERT INTO images (parent_id, duck_image) VALUES (?, ?)

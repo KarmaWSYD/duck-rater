@@ -106,9 +106,30 @@ def new_duck_post():
 def get_image(item_id):
     return items.get_image(item_id)
 
-@app.route("/item/<int:item_id>")
+@app.route("/item/<int:item_id>", methods=["GET"])
 def show_item(item_id):
     item = items.get_duck(item_id)
     images = items.get_images(item_id)
     category = items.get_category(item["category"])
     return render_template("show_item.html", images=images, item=item, category=category)
+
+@app.route("/remove-item<int:item_id>", methods=["GET", "POST"])
+def remove_item(item_id):
+    require_login()
+
+    item = items.get_duck(item_id)
+    if not item:
+        abort(404)
+    if item["user_id"] != session["user_id"]:
+        abort(403)
+
+    if request.method == "GET":
+        return render_template("remove_item.html", item=item)
+
+    if request.method == "POST":
+        check_csrf()
+        if "remove" in request.form:
+            items.remove_duck(item_id)
+            return redirect("/")
+        else:
+            return redirect("/item/" + str(item_id))
