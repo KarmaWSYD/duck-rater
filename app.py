@@ -124,7 +124,10 @@ def show_item(item_id):
     average_rating = items.get_average_rating(item_id)[0]
     if average_rating:
         average_rating = f"{average_rating:.2f}"
-    user_rating = items.get_rating(item_id, session["user_id"])
+    if session["user_id"]:
+        user_rating = items.get_rating(item_id, session["user_id"])
+    else:
+        user_rating = None
     return render_template("show_item.html", images=images, item=item, category=category, ratings_count=ratings_count, average_rating=average_rating, user_rating=user_rating)
 
 @app.route("/remove-item/<int:item_id>", methods=["GET", "POST"])
