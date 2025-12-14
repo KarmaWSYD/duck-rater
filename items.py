@@ -25,6 +25,14 @@ def get_ducks():
         ;"""
     return db.query_all(sql)
 
+def find_items(query):
+    sql = """SELECT id, duck_name AS title
+             FROM ducks
+             WHERE duck_name LIKE ? OR duck_description LIKE ?
+             ORDER BY id DESC"""
+    like = "%" + query + "%"
+    return db.query_all(sql, [like, like])
+
 def remove_duck(id):
     sql = """
     DELETE FROM images WHERE parent_id = ?

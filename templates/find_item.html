@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}Duckfinder{% endblock %}
+
+{% block content %}
+<h2>Find Post</h2>
+
+<form action="/find-item" method="get">
+  <p>
+    <label for="query">Search word</label>:
+    <input type="text" name="query" id="query" value="{{ query }}">
+  </p>
+  <input type="submit" value="Submit">
+</form>
+
+{% if query %}
+<h3>Results</h3>
+
+<ul>
+  {% for item in results %}
+  <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

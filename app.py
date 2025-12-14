@@ -197,6 +197,16 @@ def update_item():
 
     return redirect("/item/" + str(item_id))
 
+@app.route("/find-item")
+def find_item():
+    query = request.args.get("query")
+    if query:
+        results = items.find_items(query)
+    else:
+        query = ""
+        results = []
+    return render_template("find_item.html", query=query, results=results)
+
 @app.route("/add-rating/<int:item_id>", methods=["POST"])
 def add_rating(item_id):
     require_login()
