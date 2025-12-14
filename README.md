@@ -6,16 +6,17 @@
 ### Implemented Features:
 
 * The user can create an account and login to the application.
-* The user can add (pictures and/or text) about ducks (title, image, description)
-* The user can choose one or more categories for the duck (e.g. real duck, drawing of a duck, rubber duck)
+* The user can add a title, description and an image for the duck
+* The user can choose a category the duck (e.g. real duck, drawing of a duck, rubber duck)
 * The user can see images of ducks posted to the application.
 * The user can modify and delete posts about ducks. 
+* The user can rate ducks on a scale of 1-5
 
 ### Planned Features:
 
 * The user can search posts with a keyword.
 * The application has an user page that shows statistics and any posts created by the user.
-* The user can rate ducks on a scale of 1-5 as well as add written reviews of ducks.
+* as well as add written reviews of ducks.
 
 ### Known Issues:
 
