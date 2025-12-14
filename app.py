@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, session, abort
+from flask import Flask, render_template, redirect, request, session, abort, flash
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 import random
@@ -17,6 +17,12 @@ def require_login():
     if "username" not in session:
         abort(403) # We could also redirect to login page instead
 
+def check_csrf():
+    if "csrf_token" not in request.form:
+        abort(403)
+    if request.form["csrf_token"] != session["csrf_token"]:
+        abort(403)
+
 @app.route("/")
 def index():
     all_items = items.get_all_ducks()
@@ -32,13 +38,15 @@ def create_account():
     password1 = request.form["password1"]
     password2 = request.form["password2"]
     if password1 != password2:
-        return "Error: Passwords do not match"
+        flash("Error: Passwords do not match")
+        return redirect("/register")
     password_hash = generate_password_hash(password1) # return string includes the method, salt and hash ($ as separator), the salt is unique for each instance
 
     if not users.create_user(username, password_hash):
         suggest_username = username + f"{random.randint(1, 999)}"
         # TODO Add a check for if the suggested username already exists
-        return f"Error: Username has already been taken, try a different username, for example: {suggest_username}"
+        flash(f"Error: Username has already been taken, try a different username, for example: {suggest_username}")
+        return redirect("/register")
 
     session["username"] = username
     return redirect("/")
@@ -75,6 +83,7 @@ def new_duck_get():
 @app.route("/new-duck", methods=["POST"])
 def new_duck_post():
     require_login()
+    check_csrf()
     duck_name = request.form["duck-name"]
     if not duck_name:
         duck_name = "Untitled Duck"
