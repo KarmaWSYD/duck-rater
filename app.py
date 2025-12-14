@@ -112,8 +112,8 @@ def show_item(item_id):
     item = items.get_duck(item_id)
     images = items.get_images(item_id)
     category = items.get_category(item["category"])
-    ratings_count = items.get_ratings_count(item_id)
-    average_rating = items.get_average_rating(item_id)
+    ratings_count = items.get_ratings_count(item_id)[0]
+    average_rating = items.get_average_rating(item_id)[0]
     average_rating = f"{average_rating:.2f}"
     user_rating = items.get_rating(item_id, session["user_id"])
     return render_template("show_item.html", images=images, item=item, category=category, ratings_count=ratings_count, average_rating=average_rating, user_rating=user_rating)
