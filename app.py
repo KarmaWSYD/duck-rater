@@ -124,7 +124,7 @@ def show_item(item_id):
     average_rating = items.get_average_rating(item_id)[0]
     if average_rating:
         average_rating = f"{average_rating:.2f}"
-    if session["user_id"]:
+    if "user_id" in session:
         user_rating = items.get_rating(item_id, session["user_id"])
     else:
         user_rating = None
