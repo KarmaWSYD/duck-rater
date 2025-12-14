@@ -141,7 +141,7 @@ def edit_item(item_id):
     item = items.get_duck(item_id)
     if not item:
         abort(404)
-    if item["user_id"] != session["user_id"]:
+    if item["creator"] != session["user_id"]:
         abort(403)
 
     return render_template("edit_item.html", item=item)
@@ -155,7 +155,7 @@ def update_item():
     item = items.get_duck(item_id)
     if not item:
         abort(404)
-    if item["user_id"] != session["user_id"]:
+    if item["creator"] != session["user_id"]:
         abort(403)
 
     title = request.form["title"]
