@@ -25,7 +25,8 @@ def get_user(id):
     sql = """
     SELECT id, username 
     FROM users 
-    WHERE id = ?"""
+    WHERE id = ?
+    ;"""
     result = db.query_one(sql, [id])
     return result[0] if result else None
 
