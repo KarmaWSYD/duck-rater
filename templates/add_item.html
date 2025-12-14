@@ -5,14 +5,14 @@
 {% block content %}
 
 <body>
-  <form action="/new-duck" method="post">
+  <form action="/new-duck" method="post" enctype="multipart/form-data">
     <p>
       Title: <br />
       <input type="text" name="duck-name" />
     </p>
     <p>
       Image: <br />
-      <input type="file" name="duck-image" accept=".png,.jpg" />
+      <input type="file" name="duck-image" id="duck-image" accept=".png,.jpg" />
     </p>
     <p>
       Description: <br />

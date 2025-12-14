@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ item.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ item.title }}</h2>
+{% if session.user_id == item.user_id %}
+<p>
+  <!--a href="/edit_item/{{ item.id }}">Muokkaa</a-->
+  <!--a href="/remove_item/{{ item.id }}">Poista</a-->
+  <!--a href="/duck-images/{{ item.id }}">Pictures</a-->
+</p>
+{% endif %}
+{% for image in images %}
+<img src="/duck-images/{{ image.id }}" alt="Picture of a duck" />
+<!-- should we support custom alt texts for images?-->
+{% endfor %}
+<p>
+  {{ item.description }}
+</p>
+{% endblock %}

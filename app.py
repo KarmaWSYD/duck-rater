@@ -91,7 +91,9 @@ def new_duck_post():
     duck_name = request.form["duck-name"]
     if not duck_name:
         duck_name = "Untitled Duck"
-    duck_image = request.form["duck-image"]
+    file = request.files["duck-image"]
+    #
+    duck_image = file.read()
     duck_description = request.form["duck-description"]
     if not duck_description:
         duck_description = "No description provided"
@@ -115,6 +117,22 @@ def get_image(item_id):
     FROM images
     WHERE id = ?
     ;"""
-    result = db.query_all(sql, [item_id])
-    return result if result else None
+    return db.query_one(sql, [item_id])[0]
+
+@app.route("/item/<int:item_id>")
+def show_item(item_id):
+    sql = f"""
+    SELECT id FROM images WHERE parent_id = ?
+    ;"""
+    images = db.query_all(sql, [item_id])
+    
+    sql = """
+    SELECT ducks.id AS id, ducks.duck_name AS title, ducks.duck_description AS description 
+    FROM ducks
+    WHERE ducks.id = ?
+    ;"""
+    item = db.query_one(sql, [item_id])
+
+    
+    return render_template("show_item.html", images=images, item=item)
 # TODO move sql code to its own module
