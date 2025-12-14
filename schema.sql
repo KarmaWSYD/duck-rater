@@ -27,7 +27,7 @@ CREATE TABLE comments (
 CREATE TABLE ratings (
     id INTEGER PRIMARY KEY,
     parent_id INTEGER REFERENCES ducks,
-    user_id INTEGER REFERENCES users -- does this need an UNIQUE constraint?
+    user_id INTEGER REFERENCES users, -- does this need an UNIQUE constraint?
     rating INTEGER
 );
 
