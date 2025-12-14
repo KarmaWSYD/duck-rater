@@ -80,6 +80,8 @@ def login_post():
 @app.route("/logout")
 def logout():
     del session["username"]
+    del session["csrf_token"]
+    del session["user_id"]
     return redirect("/")
 
 @app.route("/new-duck", methods=["GET"])
