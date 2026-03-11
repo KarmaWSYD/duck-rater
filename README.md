@@ -1,6 +1,5 @@
 # duck-rater
 
-
 ## Application Features
 
 ### Implemented Features:
@@ -16,9 +15,12 @@
 
 
 ### Planned Features:
-
+* Forum features
+* More statistics for the user page
+* UI improvements
 
 ### Known Issues:
+* Issue in the SQL Schema causing a crash
 
 ## How to install:
 In a Python virtual environment (venv)
