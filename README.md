@@ -23,22 +23,35 @@
 * Issue in the SQL Schema causing a crash
 
 ## How to install:
-In a Python virtual environment (venv)
 Tested on Python 3.13.8, other versions may or may not work.
-### Install the `flask`-library:
+
+Start by cloning the repository:
+```
+$ git clone https://github.com/KarmaWSYD/duck-rater.git
+```
+
+### Option 1: Setup script
+This option may not work on all platforms, if it doesn't, please follow the manual install instructions instead.
+```
+$ ./setup.sh
+```
+
+### Option 2: Manual install
+In a Python virtual environment (venv)
+
+### 2.1 Install the `flask`-library:
 Tested on Flask version 3.1.2, other versions may or may not work.
 ```
 $ pip install flask==3.1.2
 ```
 
-### Create the database:
+### 2.2 Create the database:
 
 ```
 $ sqlite3 database.db < schema.sql
 $ sqlite3 database.db < init.sql
 ```
-### Start the application:
-
+## Start the application:
 Using a Flask development server (as is done here) is not suitable for production use.
 
 ```
