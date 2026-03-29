@@ -212,7 +212,7 @@ def update_item():
 
     return redirect("/item/" + str(item_id))
 
-@app.route("/find-item", methods=["POST"])
+@app.route("/find-item", methods=["GET", "POST"])
 def find_item():
     query = request.args.get("query")
     if query:
