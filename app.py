@@ -68,7 +68,7 @@ def login_post():
     username = request.form["username"]
     password = request.form["password"]
     user_id, password_hash = users.login(username)
-    if not password_hash:
+    if not user_id:
         flash("ERROR: Could not find user, are you sure you have an account?")
         return redirect("/login")
 
