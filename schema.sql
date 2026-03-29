@@ -31,7 +31,7 @@ CREATE TABLE comments (
     id INTEGER PRIMARY KEY,
     user_id INTEGER REFERENCES users,
     comment TEXT
-)
+);
 
 CREATE TABLE images (
     id INTEGER PRIMARY KEY,
