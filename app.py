@@ -174,13 +174,15 @@ def remove_item(item_id):
     if request.method == "GET":
         return render_template("remove_item.html", item=item)
 
-    if request.method == "POST":
+    elif request.method == "POST":
         check_csrf()
         if "remove" in request.form:
             items.remove_duck(item_id)
             return redirect("/")
         else:
             return redirect("/item/" + str(item_id))
+    else:
+        abort(405)
 
 @app.route("/edit-item/<int:item_id>", methods=["GET"])
 def edit_item(item_id):
