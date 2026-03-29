@@ -15,7 +15,7 @@
 
 
 ### Planned Features:
-* Forum features
+* Comments under posts
 * More statistics for the user page
 * UI improvements
 
