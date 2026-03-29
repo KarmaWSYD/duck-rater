@@ -30,30 +30,31 @@ Start by cloning the repository:
 $ git clone https://github.com/KarmaWSYD/duck-rater.git
 ```
 
-### Option 1: Setup script
-This option may not work on all platforms, if it doesn't, please follow the manual install instructions instead.
-```
-$ ./setup.sh
-```
-
-### Option 2: Manual install
+### Option 1: Manual install
 In a Python virtual environment (venv)
 
-### 2.1 Install the `flask`-library:
+### 1.1 Install the `flask`-library:
 Tested on Flask version 3.1.2, other versions may or may not work.
 ```
 $ pip install flask==3.1.2
 ```
 
-### 2.2 Create the database:
+### 1.2 Create the database:
 
 ```
 $ sqlite3 database.db < schema.sql
 $ sqlite3 database.db < init.sql
 ```
+### Option 2: Setup script
+This option is not guaranteed to work but is provided for the sake of convenience. Please use Option 1 if there are any issues.
+```
+$ ./setup.sh
+```
+
 ## Start the application:
 Using a Flask development server (as is done here) is not suitable for production use.
 
+First activate the venv, then run the following command:
 ```
 $ flask run
 ```
