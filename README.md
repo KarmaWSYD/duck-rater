@@ -20,7 +20,7 @@
 * UI improvements
 
 ### Known Issues:
-* Issue in the SQL Schema causing a crash
+* Posts on the front page reference user ID rather than the username
 
 ## How to install:
 Tested on Python 3.13.8, other versions may or may not work.
