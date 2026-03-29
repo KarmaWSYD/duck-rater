@@ -130,8 +130,12 @@ def new_duck_post():
 
 @app.route("/duck-images/<int:item_id>", methods=["GET"])
 def get_image(item_id):
-    return items.get_image(item_id)
-
+    image = items.get_image(item_id)
+    if not image:
+        abort(404)
+    else:
+        return image
+    
 @app.route("/item/<int:item_id>", methods=["GET"])
 def show_item(item_id):
     item = items.get_duck(item_id)
