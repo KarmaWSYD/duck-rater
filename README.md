@@ -58,3 +58,14 @@ First activate the venv, then run the following command:
 ```
 $ flask run
 ```
+
+## Environment variables:
+The application stores a secret key in a .env file in the directory it's installed in.
+This file, and the secret in it (formatted as `SECRET=INSERT_SECRET_HERE`, with "INSERT_SECRET_HERE" being replaced with a random string of characters) are automatically created during the installation process.
+If this process fails or you'd like to create this file yourself, you can do so by running 
+
+```
+$ cp example.env .env
+```
+
+and then using your favourite text editor to edit the value of the `SECRET=` key to a suitable value. This value should be complex and random to ensure security.
