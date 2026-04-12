@@ -20,7 +20,6 @@
 * UI improvements
 
 ### Known Issues:
-* Posts on the front page reference user ID rather than the username
 
 ## How to install:
 Tested on Python 3.13.8, other versions may or may not work.

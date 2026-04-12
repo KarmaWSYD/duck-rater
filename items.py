@@ -19,9 +19,12 @@ def get_duck(id):
 
 def get_ducks():  
     sql = """
-        SELECT id, creator, duck_name AS title, duck_description AS description 
+        SELECT ducks.id, users.username AS creator, ducks.duck_name AS title, ducks.duck_description AS description
         FROM ducks
-        ORDER BY id DESC
+        LEFT JOIN users
+          ON users.id = ducks.creator
+        ORDER BY ducks.id DESC
+        LIMIT 10
         ;"""
     return db.query_all(sql)
 
