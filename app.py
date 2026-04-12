@@ -211,8 +211,11 @@ def update_item(item_id):
     description = request.form["description"]
     if not description or len(description) > 1000:
         abort(403)
+    category = request.form['category']
+    if not category: # does the used category need to be validated?
+        abort(403)
 
-    items.update_duck(item_id, title, description)
+    items.update_duck(id=item_id, name=title, description=description, category=category)
 
     return redirect("/item/" + str(item_id))
 

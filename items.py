@@ -47,14 +47,15 @@ def remove_duck(id):
     ;"""
     db.execute(sql, [id])
 
-def update_duck(id, title, description):
+def update_duck(id, name, description, category):
     sql = """
     UPDATE ducks 
-    SET title = ?,
-        description = ?
+    SET duck_name = ?,
+      duck_description = ?,
+      category = ?
     WHERE id = ?
     ;"""
-    db.execute(sql, [id, title, description])
+    db.execute(sql, [name, description, category, id])
 
 def create_image(image, parent_id):
     sql = """
