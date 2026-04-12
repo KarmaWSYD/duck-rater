@@ -5,14 +5,15 @@
 {% block content %}
 <h2>{{ item.title }}</h2>
 <h3>Edit Post</h3>
-<form action="/update-item" method="post">
+<form action="/update-item/{{ item.id }}" method="post">
   <p>
     <label for="title">Title</label>: <br />
     <input type="text" name="title" id="title" value="{{ item.title }}" maxlength="50" required />
   </p>
   <p>
     <label for="description">Description</label>: <br />
-    <textarea name="description" id="description" rows="8" cols="60" maxlength="1000" required>{{ item.description }}</textarea>
+    <textarea name="description" id="description" rows="8" cols="60" maxlength="1000"
+      required>{{ item.description }}</textarea>
   </p>
   <input type="hidden" name="item_id" value="{{ item.id }}" />
   <p>

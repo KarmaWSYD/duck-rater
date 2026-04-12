@@ -196,11 +196,9 @@ def edit_item(item_id):
     return render_template("edit_item.html", item=item, categories=items.get_categories())
         
 @app.route("/update-item/<int:item_id>", methods=["POST"])
-def update_item():
+def update_item(item_id):
     require_login()
     check_csrf()
-
-    item_id = request.form["item_id"]
     item = items.get_duck(item_id)
     if not item:
         abort(404)
