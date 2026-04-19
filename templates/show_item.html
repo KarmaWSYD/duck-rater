@@ -61,15 +61,13 @@
 {% endif %}
 
 {% for comment in comments %}
-<br>
-<p>
-  {{ comment.user }}
-  {% if session.user_id == comment.creator %}
+<div class="comment">
+  User: <a href="/user/{{ comment.user_id }}">{{ comment.user }}</a>
+  {% if session.user_id == comment.user %}
   <a href="/remove-comment/{{ item.id }}/{{ comment.id }}">Delete</a>
   {% endif %}
   <br>
-  {comment.comment_text}
-</p>
-<br>
+  {{ comment.comment_text }}
+</div>
 {% endfor %}
 {% endblock %}
