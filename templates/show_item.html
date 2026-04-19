@@ -18,6 +18,16 @@
   {% endif %}
 </p>
 
+</p>
+{% for image in images %}
+<br />
+<img src="/duck-images/{{ image.id }}" alt="Picture of a duck" />
+{% endfor %}
+<br />
+<p>
+  {{ item.description }}
+</p>
+
 {% if session.user_id %}
 
 <body>
@@ -36,15 +46,28 @@
     </p>
   </form>
 </body>
+
+<body>
+  <form action="/create-comment/{{ item.id }}" method="post">
+    <p>
+      <label for="comment_text">Comment</label>: <br />
+      <textarea name="comment_text" id="comment_text" rows="8" cols="60" maxlength="1000" required></textarea>
+    </p>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+    <input type="submit" value="Submit" />
+  </form>
+</body>
+
 {% endif %}
 
-</p>
-{% for image in images %}
-<br />
-<img src="/duck-images/{{ image.id }}" alt="Picture of a duck" />
+{% for comment in comments %}
+<div class="comment">
+  User: <a href="/user/{{ comment.user_id }}">{{ comment.user }}</a>
+  {% if session.user_id == comment.user %}
+  <a href="/remove-comment/{{ item.id }}/{{ comment.id }}">Delete</a>
+  {% endif %}
+  <br>
+  {{ comment.comment_text }}
+</div>
 {% endfor %}
-<br />
-<p>
-  {{ item.description }}
-</p>
 {% endblock %}

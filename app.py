@@ -4,6 +4,7 @@ from secrets import token_hex
 import random
 import os
 import items, users
+from comments import delete_comment, get_comments, add_comment
 from dotenv import load_dotenv 
 # uses locally defined dotenv.py, but should be compatible with python-dotenv
 # we're not using the proper module due to course requirements
@@ -142,6 +143,7 @@ def show_item(item_id):
     images = items.get_images(item_id)
     category = items.get_category(item["category"])
     ratings_count = items.get_ratings_count(item_id)
+    comments = get_comments(item_id=item_id)
     if ratings_count: 
         ratings_count = ratings_count[0]
     else: 
@@ -159,7 +161,7 @@ def show_item(item_id):
         user_rating = items.get_rating(item_id, session["user_id"])
     else:
         user_rating = None
-    return render_template("show_item.html", images=images, item=item, category=category, ratings_count=ratings_count, average_rating=average_rating, user_rating=user_rating)
+    return render_template("show_item.html", images=images, item=item, category=category, ratings_count=ratings_count, average_rating=average_rating, user_rating=user_rating, comments=comments)
 
 @app.route("/remove-item/<int:item_id>", methods=["GET", "POST"])
 def remove_item(item_id):
@@ -243,4 +245,24 @@ def add_rating(item_id):
     elif rating > 5:
         rating = 5
     items.add_rating(item_id, user=session["user_id"], rating=rating)
+    return redirect("/item/" + str(item_id))
+
+@app.route(rule="/create-comment/<int:item_id>", methods=["POST"])
+def create_comment(item_id):
+    require_login()
+    check_csrf()
+
+    user = session["user_id"]
+    comment = request.form["comment_text"]
+    add_comment(item_id=item_id, user_id=user, comment=comment)
+    return redirect("/item/" + str(item_id))
+
+# should this be a delete?
+@app.route(rule="/remove-comment/<int:item_id>/<int:comment_id>", methods=["POST"])
+def remove_comment(item_id, comment_id):
+    require_login()
+    check_csrf()
+    
+    user=session["user_id"]
+    delete_comment(item_id=item_id, comment_id=comment_id, user_id=user)
     return redirect("/item/" + str(item_id))
