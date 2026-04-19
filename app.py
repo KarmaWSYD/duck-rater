@@ -143,7 +143,7 @@ def show_item(item_id):
     images = items.get_images(item_id)
     category = items.get_category(item["category"])
     ratings_count = items.get_ratings_count(item_id)
-    comments = comments.get_comments(item_id=item_id)
+    comments = get_comments(item_id=item_id)
     if ratings_count: 
         ratings_count = ratings_count[0]
     else: 
@@ -161,7 +161,7 @@ def show_item(item_id):
         user_rating = items.get_rating(item_id, session["user_id"])
     else:
         user_rating = None
-    return render_template("show_item.html", images=images, item=item, category=category, ratings_count=ratings_count, average_rating=average_rating, user_rating=user_rating)
+    return render_template("show_item.html", images=images, item=item, category=category, ratings_count=ratings_count, average_rating=average_rating, user_rating=user_rating, comments=comments)
 
 @app.route("/remove-item/<int:item_id>", methods=["GET", "POST"])
 def remove_item(item_id):
