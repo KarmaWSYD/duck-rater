@@ -19,7 +19,7 @@ def get_duck(id):
 
 def get_ducks():  
     sql = """
-        SELECT ducks.id, users.username AS creator, ducks.duck_name AS title, ducks.duck_description AS description
+        SELECT ducks.id, users.id AS creator_id, users.username AS creator, ducks.duck_name AS title, ducks.duck_description AS description
         FROM ducks
         LEFT JOIN users
           ON users.id = ducks.creator
