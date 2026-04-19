@@ -258,11 +258,11 @@ def create_comment(item_id):
     return redirect("/item/" + str(item_id))
 
 # should this be a delete?
-@app.route(rule="/remove-comment/<int:item_id>/<int:comment.id>", methods=["POST"])
+@app.route(rule="/remove-comment/<int:item_id>/<int:comment_id>", methods=["POST"])
 def remove_comment(item_id, comment_id):
     require_login()
     check_csrf()
     
     user=session["user_id"]
-    delete_comment(item_id, comment_id=comment_id, user_id=user)
+    delete_comment(item_id=item_id, comment_id=comment_id, user_id=user)
     return redirect("/item/" + str(item_id))
