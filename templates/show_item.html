@@ -50,8 +50,9 @@
 <body>
   <form action="/create-comment/{{ item.id }}" method="post">
     <p>
-      <label for="comment">Comment</label>: <br />
-      <textarea name="comment" id="comment" rows="8" cols="60" maxlength="1000" required>{{ comment.text }}</textarea>
+      <label for="comment_text">Comment</label>: <br />
+      <textarea name="comment_text" id="comment_text" rows="8" cols="60" maxlength="1000"
+        required>{{ comment.comment_text }}</textarea>
     </p>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
     <input type="submit" value="Submit" />
