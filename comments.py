@@ -5,9 +5,9 @@ def get_comments(item_id):
                         SELECT comments.id, comments.user_id, comments.comment AS comment_text, users.username AS user
                         FROM comments
                         LEFT JOIN users
-                          ON users.id = user_id
-                        WHERE parent_id = ?
-                        ORDER BY id ASC
+                          ON users.id = comments.user_id
+                        WHERE comments.parent_id = ?
+                        ORDER BY comments.id ASC
                         ;""",
                         [item_id]
     )
