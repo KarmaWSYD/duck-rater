@@ -48,7 +48,7 @@
 </body>
 
 <body>
-  <form action="/add-comment/{{ item.id }}" method="post">
+  <form action="/create-comment/{{ item.id }}" method="post">
     <p>
       <label for="comment">Comment</label>: <br />
       <textarea name="comment" id="comment" rows="8" cols="60" maxlength="1000" required>{{ comment.text }}</textarea>
@@ -65,8 +65,7 @@
 <p>
   {{ comment.user }}
   {% if session.user_id == comment.creator %}
-  <a href="/edit-comment/{{ comment.id }}">Edit</a>
-  <a href="/remove-comment/{{ comment.id }}">Delete</a>
+  <a href="/remove-comment/{{ item.id }}/{{ comment.id }}">Delete</a>
   {% endif %}
   <br>
   {comment.text}
