@@ -15,7 +15,7 @@ def get_comments(item_id):
 def add_comment(item_id, user_id, comment) -> None:
     db.execute("""
                INSERT INTO comments
-               parent_id, user_id, comment
+               (parent_id, user_id, comment)
                VALUES
                (?, ?, ?)
                ;""",
