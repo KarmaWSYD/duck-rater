@@ -253,7 +253,7 @@ def create_comment(item_id):
     check_csrf()
 
     user = session["user_id"]
-    comment = request.form["comment"]
+    comment = request.form["comment_text"]
     add_comment(item_id=item_id, user_id=user, comment=comment)
     return redirect("/item/" + str(item_id))
 
