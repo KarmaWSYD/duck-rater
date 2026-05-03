@@ -4,7 +4,7 @@ from secrets import token_hex
 import random
 import os
 import items, users
-from comments import delete_comment, get_comments, add_comment
+from comments import delete_comment, get_comments, add_comment, edit_comment
 from dotenv import load_dotenv 
 # uses locally defined dotenv.py, but should be compatible with python-dotenv
 # we're not using the proper module due to course requirements
@@ -257,12 +257,21 @@ def create_comment(item_id):
     add_comment(item_id=item_id, user_id=user, comment=comment)
     return redirect("/item/" + str(item_id))
 
-# should this be a delete?
+# should the method be a delete?
 @app.route(rule="/remove-comment/<int:item_id>/<int:comment_id>", methods=["POST"])
 def remove_comment(item_id, comment_id):
     require_login()
     check_csrf()
     
-    user=session["user_id"]
+    user = session["user_id"]
     delete_comment(item_id=item_id, comment_id=comment_id, user_id=user)
+    return redirect("/item/" + str(item_id))
+
+@app.route(rule="/update-comment/<int:item_id>/<int:comment_id>", methods=["POST"])
+def update_comment(item_id, comment_id):
+    require_login()
+    check_csrf()
+    user = session["user_id"]
+    comment = request.form["comment_text"]
+    edit_comment(item_id=item_id, comment_id=comment_id, comment=comment, user_id=user)
     return redirect("/item/" + str(item_id))
