@@ -20,10 +20,10 @@ CREATE TABLE ducks (
     duck_name TEXT,
     duck_description TEXT,
     category INTEGER,
-    CONSTRAINT fk_ducks
-      FOREIGN KEY (parent_id) 
-      REFERENCES ducks(id)
-      ON DELETE CASCADE,
+    CONSTRAINT fk_categories
+      FOREIGN KEY (category) 
+      REFERENCES categories(id)
+      ON DELETE CASCADE
 );
 
 CREATE TABLE ratings (
@@ -40,7 +40,6 @@ CREATE TABLE ratings (
       ON DELETE CASCADE,
     rating INTEGER,
     UNIQUE (parent_id,user_id)
-    
 );
 
 CREATE TABLE comments (
@@ -50,7 +49,7 @@ CREATE TABLE comments (
       FOREIGN KEY (parent_id) 
       REFERENCES ducks(id)
       ON DELETE CASCADE,
-    user_id INTEGER REFERENCES users
+    user_id INTEGER REFERENCES users,
     comment TEXT
 );
 
