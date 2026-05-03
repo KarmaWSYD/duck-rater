@@ -12,32 +12,16 @@ CREATE TABLE categories (
 
 CREATE TABLE ducks (
     id INTEGER PRIMARY KEY,
-    creator INTEGER,
-    CONSTRAINT fk_creator
-      FOREIGN KEY (creator) 
-      REFERENCES users(id)
-      ON DELETE CASCADE,
+    creator INTEGER REFERENCES users(id) ON DELETE CASCADE,
     duck_name TEXT,
     duck_description TEXT,
-    category INTEGER,
-    CONSTRAINT fk_categories
-      FOREIGN KEY (category) 
-      REFERENCES categories(id)
-      ON DELETE CASCADE
+    category INTEGER REFERENCES categories(id) ON DELETE CASCADE,
 );
 
 CREATE TABLE ratings (
     id INTEGER PRIMARY KEY,
-    parent_id INTEGER,
-    CONSTRAINT fk_ducks
-      FOREIGN KEY (parent_id) 
-      REFERENCES ducks(id)
-      ON DELETE CASCADE,
-    user_id INTEGER,
-    CONSTRAINT fk_user
-      FOREIGN KEY (user_id) 
-      REFERENCES users(id)
-      ON DELETE CASCADE,
+    parent_id INTEGER REFERENCES ducks(id) ON DELETE CASCADE,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     rating INTEGER,
     UNIQUE (parent_id,user_id)
 );
@@ -45,21 +29,13 @@ CREATE TABLE ratings (
 CREATE TABLE comments (
     id INTEGER PRIMARY KEY,
     parent_id INTEGER,
-    CONSTRAINT fk_ducks
-      FOREIGN KEY (parent_id) 
-      REFERENCES ducks(id)
-      ON DELETE CASCADE,
-    user_id INTEGER REFERENCES users,
+    parent_id INTEGER REFERENCES ducks(id) ON DELETE CASCADE,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     comment TEXT
 );
 
 CREATE TABLE images (
     id INTEGER PRIMARY KEY,
-    parent_id INTEGER,
-    CONSTRAINT fk_ducks
-      FOREIGN KEY (parent_id) 
-      REFERENCES ducks(id)
-      ON DELETE CASCADE,
+    parent_id INTEGER REFERENCES ducks(id) ON DELETE CASCADE,
     duck_image BLOB
 );
-
