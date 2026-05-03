@@ -10,7 +10,7 @@
   <a href="/item/{{ item.id }}">{{ item.title }}</a> <br />
   Creator: <a href="/user/{{ item.creator_id }}">{{ item.creator }}</a> <br />
   </p>
-  <img src="/duck-images/{{ image.id }}" alt="Picture of a duck" />
+  <img src="/duck-images/{{ item.image_id }}" alt="Picture of a duck" />
 </div>
 <hr>
 {% endfor %}
