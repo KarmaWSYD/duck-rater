@@ -9,7 +9,6 @@
 <form action="/remove-item/{{ item.id }}" method="delete">
   <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
   <input type="submit" name="remove" value="Remove Duck">
-  <input type="submit" name="back" value="Return">
 </form>
 <p>
   <a href="/item/{{ item.id }}">Return to the post</a>
