@@ -163,7 +163,7 @@ def show_item(item_id):
         user_rating = None
     return render_template("show_item.html", images=images, item=item, category=category, ratings_count=ratings_count, average_rating=average_rating, user_rating=user_rating, comments=comments)
 
-@app.route("/remove-item/<int:item_id>", methods=["GET", "POST"])
+@app.route("/remove-item/<int:item_id>", methods=["GET", "DELETE"])
 def remove_item(item_id):
     require_login()
 
@@ -258,20 +258,11 @@ def create_comment(item_id):
     return redirect("/item/" + str(item_id))
 
 # should the method be a delete?
-@app.route(rule="/remove-comment/<int:item_id>/<int:comment_id>", methods=["POST"])
+@app.route(rule="/remove-comment/<int:item_id>/<int:comment_id>", methods=["DELETE"])
 def remove_comment(item_id, comment_id):
     require_login()
     check_csrf()
     
     user = session["user_id"]
     delete_comment(item_id=item_id, comment_id=comment_id, user_id=user)
-    return redirect("/item/" + str(item_id))
-
-@app.route(rule="/update-comment/<int:item_id>/<int:comment_id>", methods=["POST"])
-def update_comment(item_id, comment_id):
-    require_login()
-    check_csrf()
-    user = session["user_id"]
-    comment = request.form["comment_text"]
-    edit_comment(item_id=item_id, comment_id=comment_id, comment=comment, user_id=user)
     return redirect("/item/" + str(item_id))
