@@ -67,9 +67,8 @@
   User: <a href="/user/{{ comment.user_id }}">{{ comment.user }}</a>
   {% if session.user_id == comment.user_id %}
   <form action="/remove-comment/{{ item.id }}/{{ comment.id }}" method="delete">
-    <label for="delete-comment">Delete</label>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
-    <input type="delete" value="Delete" />
+    <input type="submit" name="delete" value="Delete Comment">
     {% endif %}
     <br>
     {{ comment.comment_text }}
