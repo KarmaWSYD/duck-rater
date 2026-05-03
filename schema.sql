@@ -28,7 +28,6 @@ CREATE TABLE ratings (
 
 CREATE TABLE comments (
     id INTEGER PRIMARY KEY,
-    parent_id INTEGER,
     parent_id INTEGER REFERENCES ducks(id) ON DELETE CASCADE,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     comment TEXT
