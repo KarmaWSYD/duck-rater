@@ -3,7 +3,7 @@
 
 <head>
   <title>{% block title %}{% endblock %}</title>
-  <link rel="stylesheet" href="/static/main.css"/>
+  <link rel="stylesheet" href="/static/main.css" />
 </head>
 
 <body>
@@ -24,6 +24,7 @@
     <a href="/find-item">Find Post</a> |
     {% if session.username %}
     <a href="/new-duck">Add New Duck</a> |
+    <a href="/user/{{ session.user_id }}"> {{ session.username }}</a> |
     <a href="/logout">Log Out</a>
     {% else %}
     <a href="/register">Register</a> |
@@ -35,7 +36,7 @@
     {{ message }}
   </div>
   {% endfor %}
-  
+
   {% block content %}{% endblock %}
 </body>
 
