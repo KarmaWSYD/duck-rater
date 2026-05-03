@@ -6,7 +6,7 @@
 <h2>{{ item.title }}</h2>
 <h3>Remove Duck</h3>
 <p>Are you sure you'd like to remove this duck? This action is irreversible.</p>
-<form action="/remove-item/{{ item.id }}" method="delete">
+<form action="/remove-item/{{ item.id }}" method="post">
   <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
   <input type="submit" name="remove" value="Remove Duck">
 </form>
