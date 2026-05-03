@@ -68,7 +68,7 @@
   {% if session.user_id == comment.user_id %}
   <form action="/remove-comment/{{ item.id }}/{{ comment.id }}" method="delete">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
-    <input type="submit" name="delete" value="Delete Comment">
+    <input type="submit" name="delete" value="Delete Comment" />
   </form>
   {% endif %}
   <br>
