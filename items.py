@@ -40,14 +40,6 @@ def find_items(query):
 
 def remove_duck(id):
     sql = """
-    DELETE FROM images WHERE parent_id = ?
-    ;"""
-    db.execute(sql, [id])
-    sql = """
-    DELETE FROM comments WHERE parent_id = ?
-    ;"""
-    db.execute(sql, [id])
-    sql = """
     DELETE FROM ducks WHERE id = ?
     ;"""
     db.execute(sql, [id])
