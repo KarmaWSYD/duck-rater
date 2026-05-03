@@ -15,7 +15,7 @@ CREATE TABLE ducks (
     creator INTEGER REFERENCES users(id) ON DELETE CASCADE,
     duck_name TEXT,
     duck_description TEXT,
-    category INTEGER REFERENCES categories(id) ON DELETE CASCADE,
+    category INTEGER REFERENCES categories(id) ON DELETE CASCADE
 );
 
 CREATE TABLE ratings (
