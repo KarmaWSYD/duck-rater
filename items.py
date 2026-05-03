@@ -25,7 +25,6 @@ def get_ducks():
           ON users.id = ducks.creator
         LEFT JOIN images
           ON ducks.id = images.parent_id
-          LIMIT 1
         ORDER BY ducks.id DESC
         LIMIT 20
         ;"""
