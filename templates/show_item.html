@@ -18,16 +18,17 @@
   {% endif %}
 </p>
 
+<hr>
 </p>
 {% for image in images %}
-<br />
+<br>
 <img src="/duck-images/{{ image.id }}" alt="Picture of a duck" />
 {% endfor %}
-<br />
+<hr>
 <p>
   {{ item.description }}
 </p>
-
+<hr>
 {% if session.user_id %}
 
 <body>
@@ -70,7 +71,6 @@
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
     <input type="delete" value="Delete" />
     {% endif %}
-    <br>
     <br>
     {{ comment.comment_text }}
     <hr>
