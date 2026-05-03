@@ -10,14 +10,11 @@
 * The user can see images of ducks posted to the application.
 * The user can modify and delete posts about ducks. 
 * The user can rate ducks on a scale of 1-5
-* Users can add comments about ducks under posts
+* Users can add and delete comments about ducks under posts
 * The user can search posts with a keyword.
 * The application has an user page that shows statistics and any posts created by the user.
 
-
 ### Planned Features:
-* More statistics for the user page
-* UI improvements
 
 ### Known Issues:
 
