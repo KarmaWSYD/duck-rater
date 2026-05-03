@@ -69,10 +69,11 @@
   <form action="/remove-comment/{{ item.id }}/{{ comment.id }}" method="delete">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
     <input type="submit" name="delete" value="Delete Comment">
-    {% endif %}
-    <br>
-    {{ comment.comment_text }}
-    <hr>
+  </form>
+  {% endif %}
+  <br>
+  {{ comment.comment_text }}
+  <hr>
 </div>
 {% endfor %}
 {% endblock %}
