@@ -16,14 +16,14 @@ CREATE TABLE ducks (
     CONSTRAINT fk_creator
       FOREIGN KEY (creator) 
       REFERENCES users(id)
-      ON DELETE CASCADE
+      ON DELETE CASCADE,
     duck_name TEXT,
     duck_description TEXT,
     category INTEGER,
     CONSTRAINT fk_ducks
       FOREIGN KEY (parent_id) 
       REFERENCES ducks(id)
-      ON DELETE CASCADE
+      ON DELETE CASCADE,
 );
 
 CREATE TABLE ratings (
@@ -32,12 +32,12 @@ CREATE TABLE ratings (
     CONSTRAINT fk_ducks
       FOREIGN KEY (parent_id) 
       REFERENCES ducks(id)
-      ON DELETE CASCADE
+      ON DELETE CASCADE,
     user_id INTEGER,
     CONSTRAINT fk_user
       FOREIGN KEY (user_id) 
       REFERENCES users(id)
-      ON DELETE CASCADE
+      ON DELETE CASCADE,
     rating INTEGER,
     UNIQUE (parent_id,user_id)
     
@@ -49,7 +49,7 @@ CREATE TABLE comments (
     CONSTRAINT fk_ducks
       FOREIGN KEY (parent_id) 
       REFERENCES ducks(id)
-      ON DELETE CASCADE
+      ON DELETE CASCADE,
     user_id INTEGER REFERENCES users
     comment TEXT
 );
@@ -60,7 +60,7 @@ CREATE TABLE images (
     CONSTRAINT fk_ducks
       FOREIGN KEY (parent_id) 
       REFERENCES ducks(id)
-      ON DELETE CASCADE
+      ON DELETE CASCADE,
     duck_image BLOB
 );
 
