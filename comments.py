@@ -20,21 +20,11 @@ def add_comment(item_id, user_id, comment) -> None:
                (?, ?, ?)
                ;""",
                [item_id, user_id, comment])
-
-def edit_comment(item_id, comment_id, comment, user_id) -> None:
-    db.execute("""
-               UPDATE comments
-               SET comment = ?
-               WHERE parent_id = ?
-                 AND comment_id = ?
-                 AND user_id = ? 
-               ;""", [comment, item_id, comment_id, user_id]
-               )
         
 def delete_comment(item_id, comment_id, user_id) -> None:
     db.execute("""
                DELETE FROM comments
-               WHERE parent_id = ?
-                 AND comment_id = ?
-                 AND user_id = ?
+               WHERE comments.parent_id = ?
+                 AND comments.id = ?
+                 AND comments.user_id = ?
                ;""", [item_id, comment_id, user_id])

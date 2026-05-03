@@ -4,7 +4,7 @@ from secrets import token_hex
 import random
 import os
 import items, users
-from comments import delete_comment, get_comments, add_comment, edit_comment
+from comments import delete_comment, get_comments, add_comment
 from dotenv import load_dotenv 
 # uses locally defined dotenv.py, but should be compatible with python-dotenv
 # we're not using the proper module due to course requirements
