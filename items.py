@@ -19,12 +19,15 @@ def get_duck(id):
 
 def get_ducks():  
     sql = """
-        SELECT ducks.id, users.id AS creator_id, users.username AS creator, ducks.duck_name AS title, ducks.duck_description AS description
+        SELECT ducks.id, users.id AS creator_id, users.username AS creator, ducks.duck_name AS title, ducks.duck_description AS description, images.duck_image AS image
         FROM ducks
         LEFT JOIN users
           ON users.id = ducks.creator
+        LEFT JOIN images
+          ON ducks.id = images.parent_id
+          LIMIT 1
         ORDER BY ducks.id DESC
-        LIMIT 10
+        LIMIT 20
         ;"""
     return db.query_all(sql)
 
